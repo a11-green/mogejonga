@@ -137,6 +137,9 @@ def message_text(event):
                 )
             )
         elif message.count("グラフ") != 0:
+            line_bot_api.reply_message(
+                event.reply_token,TextSendMessage(text="graph")
+                )
             gauth = GoogleAuth()
             gauth.LocalWebserverAuth()
             drive = GoogleDrive(gauth)
