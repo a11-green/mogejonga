@@ -79,8 +79,8 @@ import re # 正規表現
 import pprint
 
 # Google Drive API
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
+# from pydrive.auth import GoogleAuth
+# from pydrive.drive import GoogleDrive
 
 
 # Flask Web App Instance
@@ -120,6 +120,7 @@ def callback():
         abort(400)
     return 'OK'
 
+#
 
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
@@ -141,12 +142,12 @@ def message_text(event):
             line_bot_api.reply_message(
                 event.reply_token,TextSendMessage(text="graph")
                 )
-            gauth = GoogleAuth()
-            gauth.LocalWebserverAuth()
-            drive = GoogleDrive(gauth)
-            file_id = drive.ListFile({'q': 'title = "log.txt"'}).GetList()[0]['id']
-            f = drive.CreateFile({'id': file_id})
-            f.GetContentFile('download.txt')
+            # gauth = GoogleAuth()
+            # gauth.LocalWebserverAuth()
+            # drive = GoogleDrive(gauth)
+            # file_id = drive.ListFile({'q': 'title = "log.txt"'}).GetList()[0]['id']
+            # f = drive.CreateFile({'id': file_id})
+            # f.GetContentFile('download.txt')
     except:
         print("errrrrrrrrrror")
     
