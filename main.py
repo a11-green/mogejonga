@@ -121,8 +121,8 @@ def message_text(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 ImageSendMessage(
-                    original_content_url = "https://www.youtube.com/?gl=JP&tab=i1&authuser=0",
-                    preview_image_url    = "https://www.youtube.com/?gl=JP&tab=i1&authuser=0"
+                    original_content_url = "https://orionfdn.org/wp-content/uploads/2018/12/WS000011-69.jpg",
+                    preview_image_url    = "https://orionfdn.org/wp-content/uploads/2018/12/WS000011-69.jpg"
                 )
             )
     except:
