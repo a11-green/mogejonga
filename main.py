@@ -29,6 +29,11 @@
 3. Python x S3(AWS)
 * https://www.casleyconsulting.co.jp/blog/engineer/2861/
 
+4. Heroku
+* [環境変数の設定](https://qiita.com/colorrabbit/items/18db3c97734f32ebdfde)
+* [Heroku x Linebot API](https://miyabi-lab.space/blog/21)
+
+
 '''
 
 # system
@@ -70,6 +75,12 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np 
 import re # 正規表現
+
+import pprint
+
+# Google Drive API
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 
 
 # Instance
@@ -116,7 +127,7 @@ def message_text(event):
     '''
     try:
         message = event.message.text
-        if message.count("plot") != 0:   
+        if message.count("新垣結衣") != 0:   
             text = "plotting...\n"
             line_bot_api.reply_message(
                 event.reply_token,
@@ -125,6 +136,13 @@ def message_text(event):
                     preview_image_url    = "https://orionfdn.org/wp-content/uploads/2018/12/WS000011-69.jpg"
                 )
             )
+        elif message.count("グラフ") != 0:
+            gauth = GoogleAuth()
+            gauth.LocalWebserverAuth()
+            drive = GoogleDrive(gauth)
+            file_id = drive.ListFile({'q': 'title = "log.txt"'}).GetList()[0]['id']
+            f = drive.CreateFile({'id': file_id})
+            f.GetContentFile('download.txt')
     except:
         print("errrrrrrrrrror")
     
