@@ -116,9 +116,8 @@ def message_text(event):
     '''
     try:
         message = event.message.text
-        if message.count("plot") != 0:
-                
-            message = "plotting...\n"
+        if message.count("plot") != 0:   
+            text = "plotting...\n"
             line_bot_api.reply_message(
                 event.reply_token,
                 ImageSendMessage(
@@ -126,80 +125,9 @@ def message_text(event):
                     preview_image_url    = "https://qiita.com/colorrabbit/items/18db3c97734f32ebdfde"
                 )
             )
-
-            
-
-# @handler.add(PostbackEvent)
-# def handle_postback(event):
-#     '''
-#     PostBackアクションがあったときの動作
-#     '''
-#     postbackdata = event.postback.data
-#     if postbackdata == "action:yes":
-#         # 着順を入力
-#         bucket.download_file(fname, fname)
-#         date = datetime.date.today()
-#         with open(fname,'a') as f:
-#             f.write("{},{},{},{},{}\n".format(date,data[0],data[1],data[2],data[3]))
-#         # bucket.upload_file(fname, fname)
-#         # 収支を入力
-#         with open(fname) as f:
-#             lines = f.readlines()
-#             tmp = lines[-1].rstrip('\n') + ",{}\n".format(money)
-#             lines[-1] = tmp
-#         with open(fname,'w') as f:
-#             for line in lines:
-#                 f.write(line)
-#         bucket.upload_file(fname, fname)
-#         line_bot_api.reply_message(
-#             event.reply_token,
-#             TextSendMessage(text="done!")
-#         )
-
-#     elif postbackdata == "request_pie":
-#         # 円グラフを表示
-#         bucket.download_file(fname, fname)
-#         df = pd.read_csv(fname,header=0)
-#         plt.clf()
-#         x = np.array([df["1st"].sum(),df["2nd"].sum(),df["3rd"].sum(),df["4th"].sum()])
-#         plt.pie(x)
-#         plt.legend()
-#         plt.savefig("pie.png")
-#         bucket.upload_file("pie.png", "pie.png")
-#         s3_image_url = s3_client.generate_presigned_url(
-#             ClientMethod = 'get_object',
-#             Params       = {'Bucket': aws_s3_bucket, 'Key': "pie.png"},
-#             ExpiresIn    = 10,
-#             HttpMethod   = 'GET'
-#         )
-#         line_bot_api.reply_message(
-#             event.reply_token,
-#             ImageSendMessage(
-#                 original_content_url = s3_image_url,
-#                 preview_image_url    = s3_image_url,
-#             )
-#         )
-#     elif postbackdata == "request_sum":
-#         # 合計を表示
-#         bucket.download_file(fname, fname)
-#         df = pd.read_csv(fname,header=0)
-#         x = np.array([df["1st"].sum(),df["2nd"].sum(),df["3rd"].sum(),df["4th"].sum()])
-#         line_bot_api.reply_message(
-#             event.reply_token,
-#             TextSendMessage(text = "{}-{}-{}-{}".format(x[0],x[1],x[2],x[3]))
-#         )
-#     elif postbackdata == "request_data":
-#         # データURLを表示
-#         message = s3_client.generate_presigned_url(
-#             ClientMethod = 'get_object',
-#             Params       = {'Bucket': aws_s3_bucket, 'Key': fname},
-#             ExpiresIn    = 10,
-#             HttpMethod   = 'GET' 
-#         )
-#         line_bot_api.reply_message(
-#             event.reply_token,
-#             TextSendMessage(text=message))
-
+    except:
+        print("errrrrrrrrrror")
+    
 
 
 if __name__ == "__main__":
