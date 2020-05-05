@@ -241,7 +241,7 @@ def message_text(event):
             plt.plot(xG,pointSumG,label="ochiai")
 
             plt.legend()
-            plt.xlim(0,300)
+            plt.xlim(0,600)
             plt.savefig("test.png")
 
             # f = drive.CreateFile()
