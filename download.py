@@ -252,6 +252,7 @@ def message_text(event):
                 Params       = {'Bucket': aws_s3_bucket, 'Key': "test.png"},
                 ExpiresIn    = 10,
                 HttpMethod   = 'GET'
+            )
 
             line_bot_api.reply_message(
                 event.reply_token,
