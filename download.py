@@ -81,10 +81,8 @@ import pprint
 # Google Drive API
 import os
 import pprint
-# from pydrive.auth import GoogleAuth
-# from pydrive.drive import GoogleDrive
-from PyDrive.auth import GoogleAuth
-from PyDrive.drive import GoogleDrive
+
+
 
 
 # Flask Web App Instance
@@ -143,6 +141,8 @@ def message_text(event):
                 )
             )
         elif message.count("グラフ") != 0:
+            from pydrive.auth import GoogleAuth
+            from pydrive.drive import GoogleDrive
             line_bot_api.reply_message(
                 event.reply_token,TextSendMessage(text="graph")
                 )

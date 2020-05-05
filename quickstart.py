@@ -56,4 +56,4 @@ def download():
         print("Download %d%%." % int(status.progress() * 100))
 
 if __name__ == '__main__':
-    main()
+    download()
