@@ -82,7 +82,8 @@ import pprint
 import os
 import pprint
 
-
+# AWS
+import boto3
 
 
 # Flask Web App Instance
@@ -103,6 +104,12 @@ if channel_access_token is None:
 # PREPARE LINE messaging API Instance
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
+
+# AWS Instance
+aws_s3_bucket = os.environ['AWS_BUCKET']
+s3 = boto3.resource("s3")
+bucket = s3.Bucket(aws_s3_bucket)
+s3_client = boto3.client('s3')
 
 '''
 以下アクション時の応答処理
@@ -239,11 +246,18 @@ def message_text(event):
             f.SetContentFile('test.png')
             f.Upload()
 
+            bucket.upload_file("test.png", "test.png")
+            s3_image_url = s3_client.generate_presigned_url(
+                ClientMethod = 'get_object',
+                Params       = {'Bucket': aws_s3_bucket, 'Key': "test.png"},
+                ExpiresIn    = 10,
+                HttpMethod   = 'GET'
+
             line_bot_api.reply_message(
                 event.reply_token,
                 ImageSendMessage(
-                    original_content_url = 'test.png',
-                    preview_image_url    = 'test.png',
+                    original_content_url = s3_image_url,
+                    preview_image_url    = s3_image_url,
                 )
             )
 
