@@ -156,7 +156,7 @@ def message_text(event):
             gauth = GoogleAuth()
             gauth.LocalWebserverAuth()
             drive = GoogleDrive(gauth)
-            file_id = drive.ListFile({'q': 'title = "log_vol1.txt"'}).GetList()[0]['id']
+            file_id = drive.ListFile({'q': 'title = "log_v1.txt"'}).GetList()[0]['id']
             f = drive.CreateFile({'id': file_id})
             f.GetContentFile('log.txt')
 
@@ -241,7 +241,7 @@ def message_text(event):
             plt.plot(xG,pointSumG,label="ochiai")
 
             plt.legend()
-            plt.xlim(0,600)
+            # plt.xlim(0,600)
             plt.savefig("test.png")
 
             # f = drive.CreateFile()
