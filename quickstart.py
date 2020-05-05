@@ -6,14 +6,11 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 # If modifying these scopes, delete the file token.pickle.
-SCOPES = ['https://www.googleapis.com/auth/documents.readonly']
-
-# The ID of a sample document.
-DOCUMENT_ID = '195j9eDD3ccgjQRttHhJPymLJUCOUjs-jmwTrekvdjFE'
+SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
 
 def main():
-    """Shows basic usage of the Docs API.
-    Prints the title of a sample document.
+    """Shows basic usage of the Drive v3 API.
+    Prints the names and ids of the first 10 files the user has access to.
     """
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -34,13 +31,29 @@ def main():
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
 
-    service = build('docs', 'v1', credentials=creds)
+    service = build('drive', 'v3', credentials=creds)
 
-    # Retrieve the documents contents from the Docs service.
-    document = service.documents().get(documentId=DOCUMENT_ID).execute()
+    # Call the Drive v3 API
+    results = service.files().list(
+        pageSize=10, fields="nextPageToken, files(id, name)").execute()
+    items = results.get('files', [])
 
-    print('The title of the document is: {}'.format(document.get('title')))
+    if not items:
+        print('No files found.')
+    else:
+        print('Files:')
+        for item in items:
+            print(u'{0} ({1})'.format(item['name'], item['id']))
 
+def download():
+    file_id = '1STrff3KFon7_L99Bt1pCdpUbApKOFcvZ68WkusiI4nw'
+    request = drive_service.files().get_media(fileId=file_id)
+    fh = io.BytesIO()
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        status, done = downloader.next_chunk()
+        print("Download %d%%." % int(status.progress() * 100))
 
 if __name__ == '__main__':
     main()
