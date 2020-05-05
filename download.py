@@ -143,9 +143,7 @@ def message_text(event):
         elif message.count("グラフ") != 0:
             from pydrive.auth import GoogleAuth
             from pydrive.drive import GoogleDrive
-            line_bot_api.reply_message(
-                event.reply_token,TextSendMessage(text="graph")
-                )
+            
             gauth = GoogleAuth()
             gauth.LocalWebserverAuth()
             drive = GoogleDrive(gauth)
@@ -240,6 +238,14 @@ def message_text(event):
             f = drive.CreateFile()
             f.SetContentFile('test.png')
             f.Upload()
+
+            line_bot_api.reply_message(
+                event.reply_token,
+                ImageSendMessage(
+                    original_content_url = 'test.png',
+                    preview_image_url    = 'test.png',
+                )
+            )
 
 
 
