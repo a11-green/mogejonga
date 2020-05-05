@@ -153,7 +153,10 @@ def message_text(event):
             f = drive.CreateFile({'id': file_id})
             f.GetContentFile('download.txt')
     except:
+        import traceback
         print("errrrrrrrrrror")
+        traceback.print_exc()
+        
     
 
 
