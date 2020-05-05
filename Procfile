@@ -1,1 +1,1 @@
-web: python dwnload.py
+web: python download.py
