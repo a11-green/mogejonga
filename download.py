@@ -150,6 +150,8 @@ def message_text(event):
         elif message.count("グラフ") != 0:
             from pydrive.auth import GoogleAuth
             from pydrive.drive import GoogleDrive
+
+            plt.clf()
             
             gauth = GoogleAuth()
             gauth.LocalWebserverAuth()
@@ -242,9 +244,9 @@ def message_text(event):
             plt.xlim(0,300)
             plt.savefig("test.png")
 
-            f = drive.CreateFile()
-            f.SetContentFile('test.png')
-            f.Upload()
+            # f = drive.CreateFile()
+            # f.SetContentFile('test.png')
+            # f.Upload()
 
             bucket.upload_file("test.png", "test.png")
             s3_image_url = s3_client.generate_presigned_url(
