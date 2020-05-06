@@ -19,7 +19,7 @@ print(type(f))
 print(f)
 # GoogleDriveFile({})
 
-f.SetContentFile('log.txt')
+f.SetContentFile('2020サンマログvol1.txt')
 print(f)
 # GoogleDriveFile({'title': 'src/lena.jpg', 'mimeType': 'image/jpeg'})
 

@@ -4,6 +4,7 @@ from pydrive.drive import GoogleDrive
 gauth = GoogleAuth()
 gauth.LocalWebserverAuth()
 drive = GoogleDrive(gauth)
-file_id = drive.ListFile({'q': 'title = "log_vol1.txt"'}).GetList()[0]['id']
+file_id = drive.ListFile({'q': 'title = "log_v1.txt"'}).GetList()[0]['id']
+# file_id = "1HShVTuwXc9-OgjFAIGL9gjZaQzEwkjY8zShfOPJ0pQ8"
 f = drive.CreateFile({'id': file_id})
-f.GetContentFile('download2.txt')
+f.GetContentFile('download4.txt')

@@ -158,10 +158,10 @@ def message_text(event):
             drive = GoogleDrive(gauth)
             file_id = drive.ListFile({'q': 'title = "log_v1.txt"'}).GetList()[0]['id']
             f = drive.CreateFile({'id': file_id})
-            f.GetContentFile('log.txt')
+            f.GetContentFile('tmp/log.txt')
 
 
-            f = open('log.txt')
+            f = open('tmp/log.txt')
             lines = f.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
             f.close()
             pointsA   = [0] # 浅野
