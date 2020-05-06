@@ -152,7 +152,7 @@ def message_text(event):
             from pydrive.drive import GoogleDrive
 
             plt.clf()
-            os.remove(log.txt)
+            os.remove("log.txt")
             
             gauth = GoogleAuth()
             gauth.LocalWebserverAuth()
