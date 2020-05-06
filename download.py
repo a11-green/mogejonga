@@ -157,7 +157,7 @@ def message_text(event):
             gauth = GoogleAuth()
             gauth.LocalWebserverAuth()
             drive = GoogleDrive(gauth)
-            file_id = drive.ListFile({'q': 'title = "2020サンマログvol1.txt"'}).GetList()[0]['id']
+            file_id = drive.ListFile({'q': 'title = "2020サンマログvol1.txt" and trashed = false'}).GetList()[0]['id']
             f = drive.CreateFile({'id': file_id})
             f.GetContentFile('log.txt')
 
