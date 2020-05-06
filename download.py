@@ -152,6 +152,7 @@ def message_text(event):
             from pydrive.drive import GoogleDrive
 
             plt.clf()
+            os.remove(log.txt)
             
             gauth = GoogleAuth()
             gauth.LocalWebserverAuth()
@@ -181,19 +182,25 @@ def message_text(event):
             pointSumG = [0] # 落合
             pointSumH = [0] # 闘莉王
             LIST = []
-            print(float("-2.0"))
+      
 
             # lines: リスト。要素は1行の文字列データ
             for line in lines[1:]:
                 if len(line) > 10: #変な行は飛ばす
-                    roomid  = line.split("|")[0]
-                    time    = line.split("|")[1]
-                    rools   = line.split("|")[2]
-                    players = line.split("|")[3]
-                    l = re.split('[ ()]', players)
-                    LIST.append([l[1],float(l[2].replace("+",""))])
-                    LIST.append([l[4],float(l[5].replace("+",""))])
-                    LIST.append([l[7],float(l[8].replace("+",""))])
+                    try:
+                        roomid  = line.split("|")[0]
+                        time    = line.split("|")[1]
+                        rools   = line.split("|")[2]
+                        players = line.split("|")[3]
+                        l = re.split('[ ()]', players)
+                        LIST.append([l[1],float(l[2].replace("+",""))])
+                        LIST.append([l[4],float(l[5].replace("+",""))])
+                        LIST.append([l[7],float(l[8].replace("+",""))])
+                    except:
+                        print("error at:\n")
+                        print(line)
+
+
             # print(LIST)
             for i,data in enumerate(LIST):
                 player  = data[0]
