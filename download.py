@@ -242,6 +242,7 @@ def message_text(event):
             xE = [i for i in range(len(pointsE))]
             xF = [i for i in range(len(pointsF))]
             xG = [i for i in range(len(pointsG))]
+            xH = [i for i in range(len(pointsH))]
 
             plt.plot(xA,pointSumA,label="asano")
             plt.plot(xB,pointSumB,label="kondo")
@@ -250,8 +251,10 @@ def message_text(event):
             plt.plot(xE,pointSumE,label="edamatsu")
             plt.plot(xF,pointSumF,label="tsuchihashi")
             plt.plot(xG,pointSumG,label="ochiai")
+            plt.plot(xH,pointSumH,label="nakayama")
 
-            plt.legend()
+            plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+            plt.subplots_adjust(right=0.7)
             # plt.xlim(0,600)
             plt.savefig("test.png")
 
