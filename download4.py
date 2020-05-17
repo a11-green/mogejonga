@@ -39,12 +39,9 @@ def download(file_from,file_to):
     access_token = "GbXhQF7dqhYAAAAAAAAiGOaPGzNPQ4GKcwLWHmsI1VkNR1a-08ZlQ7-a-AvdpeEl"
     transferData = TransferData(access_token)
 
-    file_from = '/test2.txt'
-    file_to = 'testdbxdownload.txt'  # The full path to upload the file to, including the file name
-
     # API v2
     transferData.download_file(file_from, file_to)
 
 if __name__ == '__main__':
     # upload()
-    download("2020サンマログvol1.txt,log.txt")
+    download('/logvol1.txt',"log.txt")
