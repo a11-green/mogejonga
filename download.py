@@ -281,8 +281,8 @@ def message_text(event):
             import download4
             import graph
 
-            download("2020サンマログvol1.txt,log.txt")
-            graph_plot()
+            download4.download("2020サンマログvol1.txt,log.txt")
+            graph.graph_plot()
 
             bucket.upload_file("test.png", "test.png")
             s3_image_url = s3_client.generate_presigned_url(
