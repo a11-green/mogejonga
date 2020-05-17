@@ -76,6 +76,7 @@ def graph_plot():
     xE = [i for i in range(len(pointsE))]
     xF = [i for i in range(len(pointsF))]
     xG = [i for i in range(len(pointsG))]
+    xH = [i for i in range(len(pointsH))]
 
     plt.clf()
 
@@ -86,7 +87,7 @@ def graph_plot():
     plt.plot(xE,pointSumE,label="edamatsu")
     plt.plot(xF,pointSumF,label="tsuchihashi")
     plt.plot(xG,pointSumG,label="ochiai")
-    plt.plot(xH,pointSumG,label="nakayama")
+    plt.plot(xH,pointSumH,label="nakayama")
 
     plt.legend()
     # plt.xlim(0,300)
