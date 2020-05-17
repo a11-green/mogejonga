@@ -77,6 +77,8 @@ def graph_plot():
     xF = [i for i in range(len(pointsF))]
     xG = [i for i in range(len(pointsG))]
 
+    plt.clf()
+
     plt.plot(xA,pointSumA,label="asano")
     plt.plot(xB,pointSumB,label="kondo")
     plt.plot(xC,pointSumC,label="nagaya")
@@ -84,9 +86,10 @@ def graph_plot():
     plt.plot(xE,pointSumE,label="edamatsu")
     plt.plot(xF,pointSumF,label="tsuchihashi")
     plt.plot(xG,pointSumG,label="ochiai")
+    plt.plot(xH,pointSumG,label="nakayama")
 
     plt.legend()
-    plt.xlim(0,300)
+    # plt.xlim(0,300)
     plt.savefig("test.png")
 
 
