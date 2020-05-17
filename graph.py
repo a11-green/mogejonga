@@ -64,7 +64,10 @@ def graph_plot():
         elif player == "Toshi624":
             pointsG.append(point)
             pointSumG.append(pointSumG[-1]+point)
-        elif (player == "遊びたい") or (player == "とぅーり王"):
+        elif player == "遊びたい":
+            pointsH.append(point)
+            pointSumH.append(pointSumH[-1]+point)
+        elif player == "とぅーり王":
             pointsH.append(point)
             pointSumH.append(pointSumH[-1]+point)
 
@@ -94,7 +97,7 @@ def graph_plot():
     plt.savefig("test.png")
 
 
-    playerName = ["場代負け","バラク・オマタ","ソギモギ皇帝","鳥谷タカシ","さかかきばら","ニートしたい","Toshi624","遊びたい"]
+    playerName = ["場代負け","バラク・オマタ","ソギモギ皇帝","鳥谷タカシ","さかかきばら","ニートしたい","Toshi624","遊びたい","とぅーり王"]
     df = pd.DataFrame(index=playerName, columns=playerName)
     df = df.fillna(0.0).copy()
     df2 = df.copy()
@@ -132,3 +135,5 @@ def graph_plot():
 #         print(ind)
 #         print(players[ind],players[ind-1],players[ind-2])
 
+if __name__ == "__main__":
+    graph_plot()
