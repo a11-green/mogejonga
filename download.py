@@ -281,7 +281,7 @@ def message_text(event):
             import download4
             import graph
 
-            download4.download("2020サンマログvol1.txt,log.txt")
+            download4.download("2020サンマログvol1.txt","log.txt")
             graph.graph_plot()
 
             bucket.upload_file("test.png", "test.png")
