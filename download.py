@@ -230,7 +230,7 @@ def message_text(event):
                 elif player == "Toshi624":
                     pointsG.append(point)
                     pointSumG.append(pointSumG[-1]+point)
-                elif player == "遊びたい":
+                elif (player == "遊びたい") or (player=="とぅーり王"):
                     pointsH.append(point)
                     pointSumH.append(pointSumH[-1]+point)
 
@@ -277,7 +277,28 @@ def message_text(event):
                     preview_image_url    = s3_image_url,
                 )
             )
+        elif message.count("ぐらふ") != 0:
+            import download4
+            import graph
 
+            download("2020サンマログvol1.txt,log.txt")
+            graph_plot()
+
+            bucket.upload_file("test.png", "test.png")
+            s3_image_url = s3_client.generate_presigned_url(
+                ClientMethod = 'get_object',
+                Params       = {'Bucket': aws_s3_bucket, 'Key': "test.png"},
+                ExpiresIn    = 10,
+                HttpMethod   = 'GET'
+            )
+
+            line_bot_api.reply_message(
+                event.reply_token,
+                ImageSendMessage(
+                    original_content_url = s3_image_url,
+                    preview_image_url    = s3_image_url,
+                )
+            )
 
 
 
