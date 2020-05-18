@@ -1,6 +1,12 @@
 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+'''
+REFERENCES
+* [](https://www.it-swarm.dev/ja/python/python-scriptからdropboxにファイルをアップロードする/1047611873/)
+* [](https://qiita.com/seigo-pon/items/ca9951dac0b7fa29cce0)
+'''
 import dropbox
 
 class TransferData:
@@ -13,7 +19,7 @@ class TransferData:
         dbx = dropbox.Dropbox(self.access_token)
 
         with open(file_from, 'rb') as f:
-            dbx.files_upload(f.read(), file_to)
+            dbx.files_upload(f.read(), file_to,mode=dropbox.files.WriteMode.overwrite)
     
     def download_file(self,file_from,file_to):
         """download a file to Dropbox using API v2
@@ -25,20 +31,15 @@ class TransferData:
     
 
 
-def upload():
+def upload(file_from,file_to):
     access_token = "GbXhQF7dqhYAAAAAAAAiGOaPGzNPQ4GKcwLWHmsI1VkNR1a-08ZlQ7-a-AvdpeEl"
     transferData = TransferData(access_token)
-
-    file_from = 'testdbx.txt'
-    file_to = '/test2.txt'  # The full path to upload the file to, including the file name
-
     # API v2
     transferData.upload_file(file_from, file_to)
 
 def download(file_from,file_to):
     access_token = "GbXhQF7dqhYAAAAAAAAiGOaPGzNPQ4GKcwLWHmsI1VkNR1a-08ZlQ7-a-AvdpeEl"
     transferData = TransferData(access_token)
-
     # API v2
     transferData.download_file(file_from, file_to)
 
