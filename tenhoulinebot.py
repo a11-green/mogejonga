@@ -301,7 +301,9 @@ def message_text(event):
             )
 
         elif message.count("しゅうけい") != 0:
+            import download4
             import summary
+            download4.download("/logvol1.txt","log.txt")
             summary.sumup()
 
             with open('summary.txt') as f:
