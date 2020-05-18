@@ -89,15 +89,15 @@ def sumup():
 
     with open("summary.txt",'w') as f:
         f.write("NAME POINTS GAMES\n")
-        f.write("場代負け {} {}\n".format(pointSumA[-1],xA[-1]))
-        f.write("バラク・オマタ {} {}\n".format(pointSumB[-1],xB[-1]))
-        f.write("ソギモギ皇帝 {} {}\n".format(pointSumC[-1],xC[-1]))
-        f.write("鳥谷タカシ {} {}\n".format(pointSumD[-1],xD[-1]))
-        f.write("さかかきばら {} {}\n".format(pointSumE[-1],xE[-1]))
-        f.write("ニートしたい {} {}\n".format(pointSumF[-1],xF[-1]))
-        f.write("Toshi624 {} {}\n".format(pointSumG[-1],xG[-1]))
-        f.write("とぅーり王 {} {}\n".format(pointSumH[-1],xH[-1]))
-        f.write("kitagaw {} {}\n".format(pointSumI[-1],xI[-1]))
+        f.write("場代負け {} {}".format(pointSumA[-1],xA[-1]))
+        f.write("バラク・オマタ {} {}".format(pointSumB[-1],xB[-1]))
+        f.write("ソギモギ皇帝 {} {}".format(pointSumC[-1],xC[-1]))
+        f.write("鳥谷タカシ {} {}".format(pointSumD[-1],xD[-1]))
+        f.write("さかかきばら {} {}".format(pointSumE[-1],xE[-1]))
+        f.write("ニートしたい {} {}".format(pointSumF[-1],xF[-1]))
+        f.write("Toshi624 {} {}".format(pointSumG[-1],xG[-1]))
+        f.write("とぅーり王 {} {}".format(pointSumH[-1],xH[-1]))
+        f.write("kitagaw {} {}".format(pointSumI[-1],xI[-1]))
 
 
 
