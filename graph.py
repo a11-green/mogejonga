@@ -17,6 +17,7 @@ def graph_plot():
     pointsF   = [0] # 土橋
     pointsG   = [0] # 落合
     pointsH   = [0] #　闘莉王
+    pointsI   = [0] # はるきさん
     pointSumA = [0] # 浅野
     pointSumB = [0] # 混同
     pointSumC = [0] # 長屋
@@ -25,6 +26,7 @@ def graph_plot():
     pointSumF = [0] # 土橋
     pointSumG = [0] # 落合
     pointSumH = [0] # 闘莉王
+    pointSumI = [0] # はるきさん
     LIST = []
     print(float("-2.0"))
 
@@ -70,6 +72,9 @@ def graph_plot():
         elif player == "とぅーり王":
             pointsH.append(point)
             pointSumH.append(pointSumH[-1]+point)
+        elif player == "kitagaw":
+            pointsI.append(point)
+            pointSumI.append(pointSumI[-1]+point)
 
             
     xA = [i for i in range(len(pointsA))]
@@ -80,6 +85,7 @@ def graph_plot():
     xF = [i for i in range(len(pointsF))]
     xG = [i for i in range(len(pointsG))]
     xH = [i for i in range(len(pointsH))]
+    xI = [i for i in range(len(pointsI))]
 
     plt.clf()
 
@@ -91,42 +97,43 @@ def graph_plot():
     plt.plot(xF,pointSumF,label="tsuchihashi")
     plt.plot(xG,pointSumG,label="ochiai")
     plt.plot(xH,pointSumH,label="nakayama")
+    plt.plot(xI,pointSumI,label="kitagawa")
 
     plt.legend()
     # plt.xlim(0,300)
     plt.savefig("test.png")
 
 
-    playerName = ["場代負け","バラク・オマタ","ソギモギ皇帝","鳥谷タカシ","さかかきばら","ニートしたい","Toshi624","遊びたい","とぅーり王"]
-    df = pd.DataFrame(index=playerName, columns=playerName)
-    df = df.fillna(0.0).copy()
-    df2 = df.copy()
+    # playerName = ["場代負け","バラク・オマタ","ソギモギ皇帝","鳥谷タカシ","さかかきばら","ニートしたい","Toshi624","遊びたい","とぅーり王"]
+    # df = pd.DataFrame(index=playerName, columns=playerName)
+    # df = df.fillna(0.0).copy()
+    # df2 = df.copy()
 
-    print(df)
+    # print(df)
 
-    for i in range(0,len(LIST),3):
-        data1 = LIST[i]
-        data2 = LIST[i+1]
-        data3 = LIST[i+2]
-        players = [data1[0],data2[0],data3[0]]
-        points = [data1[1],data2[1],data3[1]]
-        df.loc[players[0],players[1]] += points[0]
-        df.loc[players[0],players[2]] += points[0]
-        df.loc[players[1],players[2]] += points[1]
-        df.loc[players[1],players[0]] += points[1]
-        df.loc[players[2],players[0]] += points[2]
-        df.loc[players[2],players[1]] += points[2]
+    # for i in range(0,len(LIST),3):
+    #     data1 = LIST[i]
+    #     data2 = LIST[i+1]
+    #     data3 = LIST[i+2]
+    #     players = [data1[0],data2[0],data3[0]]
+    #     points = [data1[1],data2[1],data3[1]]
+    #     df.loc[players[0],players[1]] += points[0]
+    #     df.loc[players[0],players[2]] += points[0]
+    #     df.loc[players[1],players[2]] += points[1]
+    #     df.loc[players[1],players[0]] += points[1]
+    #     df.loc[players[2],players[0]] += points[2]
+    #     df.loc[players[2],players[1]] += points[2]
 
-        df2.loc[players[0],players[1]] += points[0] - points[1]
-        df2.loc[players[0],players[2]] += points[0] - points[2]
-        df2.loc[players[1],players[2]] += points[1] - points[2]
-        df2.loc[players[1],players[0]] += points[1] - points[0]
-        df2.loc[players[2],players[0]] += points[2] - points[0]
-        df2.loc[players[2],players[1]] += points[2] - points[1]
+    #     df2.loc[players[0],players[1]] += points[0] - points[1]
+    #     df2.loc[players[0],players[2]] += points[0] - points[2]
+    #     df2.loc[players[1],players[2]] += points[1] - points[2]
+    #     df2.loc[players[1],players[0]] += points[1] - points[0]
+    #     df2.loc[players[2],players[0]] += points[2] - points[0]
+    #     df2.loc[players[2],players[1]] += points[2] - points[1]
 
-    print(df)
-    df.to_csv("test.csv")
-    df2.to_csv("test2.csv")
+    # print(df)
+    # df.to_csv("test.csv")
+    # df2.to_csv("test2.csv")
 
 
 
