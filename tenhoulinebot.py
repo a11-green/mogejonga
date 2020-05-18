@@ -308,6 +308,7 @@ def message_text(event):
 
             with open('summary.txt') as f:
                 lines = f.readlines()
+            text = ""
             for line in lines:
                 text += "{}\n".format(line)
             line_bot_api.reply_message(
