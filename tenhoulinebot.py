@@ -189,6 +189,7 @@ def message_text(event):
             event.reply_token,
             TextSendMessage(text = text)
             )
+            download4.upload("summary.txt","/summary.txt")  
 
         elif message.count("もげ") != 0:
             line_bot_api.reply_message(
