@@ -147,136 +147,8 @@ def message_text(event):
                     preview_image_url    = "https://orionfdn.org/wp-content/uploads/2018/12/WS000011-69.jpg"
                 )
             )
-        # elif message.count("グラフ") != 0:
-        #     from pydrive.auth import GoogleAuth
-        #     from pydrive.drive import GoogleDrive
-
-        #     plt.clf()
-        #     os.remove("log.txt")
-            
-        #     gauth = GoogleAuth()
-        #     gauth.LocalWebserverAuth()
-        #     drive = GoogleDrive(gauth)
-        #     file_id = drive.ListFile({'q': 'title = "2020サンマログvol1.txt" and trashed = false'}).GetList()[0]['id']
-        #     f = drive.CreateFile({'id': file_id})
-        #     f.GetContentFile('log.txt')
-
-
-        #     f = open('log.txt')
-        #     lines = f.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
-        #     f.close()
-        #     pointsA   = [0] # 浅野
-        #     pointsB   = [0] # 混同
-        #     pointsC   = [0] # 長屋
-        #     pointsD   = [0] # 諏訪
-        #     pointsE   = [0] # 枝松　
-        #     pointsF   = [0] # 土橋
-        #     pointsG   = [0] # 落合
-        #     pointsH   = [0] #　闘莉王
-        #     pointSumA = [0] # 浅野
-        #     pointSumB = [0] # 混同
-        #     pointSumC = [0] # 長屋
-        #     pointSumD = [0] # 諏訪
-        #     pointSumE = [0] # 枝松　
-        #     pointSumF = [0] # 土橋
-        #     pointSumG = [0] # 落合
-        #     pointSumH = [0] # 闘莉王
-        #     LIST = []
-      
-
-        #     # lines: リスト。要素は1行の文字列データ
-        #     for line in lines[1:]:
-        #         if len(line) > 10: #変な行は飛ばす
-        #             try:
-        #                 roomid  = line.split("|")[0]
-        #                 time    = line.split("|")[1]
-        #                 rools   = line.split("|")[2]
-        #                 players = line.split("|")[3]
-        #                 l = re.split('[ ()]', players)
-        #                 LIST.append([l[1],float(l[2].replace("+",""))])
-        #                 LIST.append([l[4],float(l[5].replace("+",""))])
-        #                 LIST.append([l[7],float(l[8].replace("+",""))])
-        #             except:
-        #                 print("error at:\n")
-        #                 print(line)
-        #                 line_bot_api.reply_message(
-        #                     event.reply_token, 
-        #                     messages="ERROR at {}".format(line)
-        #                 )
-
-
-        #     # print(LIST)
-        #     for i,data in enumerate(LIST):
-        #         player  = data[0]
-        #         point   = data[1]
-        #         if player == "場代負け":
-        #             pointsA.append(point)
-        #             pointSumA.append(pointSumA[-1]+point)
-        #         elif player == "バラク・オマタ":
-        #             pointsB.append(point)
-        #             pointSumB.append(pointSumB[-1]+point)
-        #         elif player == "ソギモギ皇帝":
-        #             pointsC.append(point)
-        #             pointSumC.append(pointSumC[-1]+point)
-        #         elif player == "鳥谷タカシ":
-        #             pointsD.append(point)
-        #             pointSumD.append(pointSumD[-1]+point)
-        #         elif player == "さかかきばら":
-        #             pointsE.append(point)
-        #             pointSumE.append(pointSumE[-1]+point)
-        #         elif player == "ニートしたい":
-        #             pointsF.append(point)
-        #             pointSumF.append(pointSumF[-1]+point)
-        #         elif player == "Toshi624":
-        #             pointsG.append(point)
-        #             pointSumG.append(pointSumG[-1]+point)
-        #         elif (player == "遊びたい") or (player=="とぅーり王"):
-        #             pointsH.append(point)
-        #             pointSumH.append(pointSumH[-1]+point)
-
-                    
-        #     xA = [i for i in range(len(pointsA))]
-        #     xB = [i for i in range(len(pointsB))]
-        #     xC = [i for i in range(len(pointsC))]
-        #     xD = [i for i in range(len(pointsD))]
-        #     xE = [i for i in range(len(pointsE))]
-        #     xF = [i for i in range(len(pointsF))]
-        #     xG = [i for i in range(len(pointsG))]
-        #     xH = [i for i in range(len(pointsH))]
-
-        #     plt.plot(xA,pointSumA,label="asano")
-        #     plt.plot(xB,pointSumB,label="kondo")
-        #     plt.plot(xC,pointSumC,label="nagaya")
-        #     plt.plot(xD,pointSumD,label="suwa")
-        #     plt.plot(xE,pointSumE,label="edamatsu")
-        #     plt.plot(xF,pointSumF,label="tsuchihashi")
-        #     plt.plot(xG,pointSumG,label="ochiai")
-        #     plt.plot(xH,pointSumH,label="nakayama")
-
-        #     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-        #     plt.subplots_adjust(right=0.7)
-        #     # plt.xlim(0,600)
-        #     plt.savefig("test.png")
-
-        #     # f = drive.CreateFile()
-        #     # f.SetContentFile('test.png')
-        #     # f.Upload()
-
-        #     bucket.upload_file("test.png", "test.png")
-        #     s3_image_url = s3_client.generate_presigned_url(
-        #         ClientMethod = 'get_object',
-        #         Params       = {'Bucket': aws_s3_bucket, 'Key': "test.png"},
-        #         ExpiresIn    = 10,
-        #         HttpMethod   = 'GET'
-        #     )
-
-        #     line_bot_api.reply_message(
-        #         event.reply_token,
-        #         ImageSendMessage(
-        #             original_content_url = s3_image_url,
-        #             preview_image_url    = s3_image_url,
-        #         )
-        #     )
+        
+        # Graph Plot
         elif message.count("ぐらふ") != 0:
             import download4
             import graph
@@ -299,7 +171,9 @@ def message_text(event):
                     preview_image_url    = s3_image_url,
                 )
             )
+            download4.upload("test.png","/graph.png")     
 
+        # Summary
         elif message.count("しゅうけい") != 0:
             import download4
             import summary
