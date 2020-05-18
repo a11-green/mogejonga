@@ -316,7 +316,13 @@ def message_text(event):
         elif message.count("もげ") != 0:
             line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text = text)
+            TextSendMessage(text = "じょんが")
+            )
+
+        elif message.count("だーー") != 0:
+            line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text = "猪木かよ")
             )
 
 
