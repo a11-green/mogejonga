@@ -303,7 +303,7 @@ def message_text(event):
         elif message.count("しゅうけい") != 0:
             import summary
             summary.sumup()
-            
+
             with open('summary.txt') as f:
                 lines = f.readlines()
             for line in lines:
@@ -311,7 +311,13 @@ def message_text(event):
             line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text)
-        )
+            )
+
+        elif message.count("もげ") != 0:
+            line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text = text)
+            )
 
 
 
