@@ -191,6 +191,7 @@ def message_text(event):
             )
             download4.upload("summary.txt","/summary.txt")  
 
+        # おまけ
         elif message.count("もげ") != 0:
             line_bot_api.reply_message(
             event.reply_token,
@@ -203,6 +204,13 @@ def message_text(event):
             TextSendMessage(text = "猪木かよ")
             )
 
+        elif message.count("ブリテン") != 0:
+            line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text = "イギリスかよ")
+            )
+
+    
 
 
     except:
