@@ -152,7 +152,7 @@ def sumup(tip):
 
     with open("summary.txt",'w') as f:
         if tip == True:
-            f.write("NAME POINTS GAMES\n")
+            f.write("NAME POINTs GAMEs TIPs\n")
             f.write("場代負け {} {} {}\n".format(pointSumA[-1],xA[-1],tipSumA[-1]))
             f.write("バラク・オマタ {} {} {}\n".format(pointSumB[-1],xB[-1],tipSumB[-1]))
             f.write("ソギモギ皇帝 {} {} {}\n".format(pointSumC[-1],xC[-1],tipSumC[-1]))
@@ -163,7 +163,7 @@ def sumup(tip):
             f.write("とぅーり王 {} {} {}\n".format(pointSumH[-1],xH[-1],tipSumH[-1]))
             f.write("kitagaw {} {} {}\n".format(pointSumI[-1],xI[-1],tipSumI[-1]))
         if tip == False:
-            f.write("NAME POINTs GAMEs TIPs\n")
+            f.write("NAME POINTs GAMEs \n")
             f.write("場代負け {} {}\n".format(pointSumA[-1],xA[-1]))
             f.write("バラク・オマタ {} {}\n".format(pointSumB[-1],xB[-1]))
             f.write("ソギモギ皇帝 {} {}\n".format(pointSumC[-1],xC[-1]))
