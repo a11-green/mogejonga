@@ -229,7 +229,9 @@ def message_text(event):
         print("errrrrrrrrrror")
         traceback.print_exc()
         
-    @handler.add(PostbackEvent)
+
+        
+@handler.add(PostbackEvent)
 def handle_postback(event):
     '''
     PostBackアクションがあったときの動作
