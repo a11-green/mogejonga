@@ -47,6 +47,17 @@ def sumup(tip):
     tipSumG = [0] # 落合
     tipSumH = [0] # 闘莉王
     tipSumI = [0] # はるきさん
+    rank   = {
+        "場代負け":[0,0,0],
+        "バラク・オマタ":[0,0,0],
+        "ソギモギ皇帝":[0,0,0],
+        "鳥谷タカシ":[0,0,0],
+        "さかかきばら":[0,0,0],
+        "ニートしたい":[0,0,0],
+        "Toshi624":[0,0,0],
+        "とぅーり王":[0,0,0],
+        "kitagaw":[0,0,0]
+        } # 着順
     LIST = []
    
 
@@ -63,13 +74,19 @@ def sumup(tip):
                 LIST.append([l[1],float(l[2].replace("+",""))])
                 LIST.append([l[4],float(l[5].replace("+",""))])
                 LIST.append([l[7],float(l[8].replace("+",""))])
+
             # 祝儀ありの場合
             if tip == True:
                 l = re.split('[ (,)]', players)
-                print(l)
                 LIST.append([l[1],float(l[2].replace("+","")),float(l[3].replace("+","").replace("枚",""))])
                 LIST.append([l[5],float(l[6].replace("+","")),float(l[7].replace("+","").replace("枚",""))])
                 LIST.append([l[9],float(l[10].replace("+","")),float(l[11].replace("+","").replace("枚",""))])
+                rank[l[1]][0] += 1
+                rank[l[5]][1] += 1
+                rank[l[9]][2] += 1
+
+            # 着順の記録
+
 
 
     # print(LIST)
@@ -173,6 +190,24 @@ def sumup(tip):
             f.write("Toshi624 {} {}\n".format(pointSumG[-1],xG[-1]))
             f.write("とぅーり王 {} {}\n".format(pointSumH[-1],xH[-1]))
             f.write("kitagaw {} {}\n".format(pointSumI[-1],xI[-1]))
+    
+    with open("rank.txt",'w') as f:
+        NAMEs = [
+            "場代負け",
+            "バラク・オマタ",
+            "ソギモギ皇帝",
+            "鳥谷タカシ",
+            "さかかきばら",
+            "ニートしたい",
+            "Toshi624",
+            "とぅーり王",
+            "kitagaw"
+        ]
+        if tip == True:
+            f.write("NAME 1st 2nd 3rd\n")
+            for name in NAMEs:
+                f.write("{} : {}-{}-{}\n".format(name,rank[name][0],rank[name][1],rank[name][2]) )
+            
 
 
 

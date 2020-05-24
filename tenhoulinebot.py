@@ -150,8 +150,8 @@ def message_text(event):
         
         # Graph Plot
         elif message.count("ぐらふ") != 0:
-            import download4
-            import graph
+            # import download4
+            # import graph
 
             line_bot_api.reply_message(
                     event.reply_token,
@@ -162,14 +162,14 @@ def message_text(event):
                                 QuickReplyButton(
                                     action=PostbackAction(
                                         label="点",       # ボタンに表示する文字
-                                        text="点収支を見せて",  # テキストとして送信する文字
+                                        text="点数推移を見せて",  # テキストとして送信する文字
                                         data="request_point"     # Postback
                                     )
                                 ),
                                 QuickReplyButton(
                                     action=PostbackAction(
                                         label="チップ",
-                                        text="チップ収支をみせて",
+                                        text="チップ推移をみせて",
                                         data="request_tip"
                                     )
                                 )
@@ -183,21 +183,30 @@ def message_text(event):
 
         # Summary
         elif message.count("しゅうけい") != 0:
-            import download4
-            import summary
-            download4.download("/logvol2.txt","log.txt")
-            summary.sumup(tip=True)
-
-            with open('summary.txt') as f:
-                lines = f.readlines()
-            text = ""
-            for line in lines:
-                text += "{}\n".format(line)
             line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text = text)
-            )
-            download4.upload("summary.txt","/summary.txt")  
+                    event.reply_token,
+                    TextSendMessage(
+                        text="どれにする?",
+                        quick_reply=QuickReply(
+                            items=[
+                                QuickReplyButton(
+                                    action=PostbackAction(
+                                        label="収支",       # ボタンに表示する文字
+                                        text="収支を見せて",  # テキストとして送信する文字
+                                        data="request_sum"     # Postback
+                                    )
+                                ),
+                                QuickReplyButton(
+                                    action=PostbackAction(
+                                        label="着順",
+                                        text="着順をみせて",
+                                        data="request_rank"
+                                    )
+                                )
+                            ]
+                        )
+                    )
+                )
 
         # おまけ
         elif message.count("もげ") != 0:
@@ -239,7 +248,7 @@ def handle_postback(event):
     import download4
     import summary
     import graph
-    
+
     postbackdata = event.postback.data
     if postbackdata == "request_point":
         download4.download("/logvol2.txt","log.txt")
@@ -280,7 +289,41 @@ def handle_postback(event):
             )
         )
         download4.upload("test2.png","/graph2.png")    
-        
+
+
+    elif postbackdata == "request_sum":
+        import download4
+        import summary
+        download4.download("/logvol2.txt","log.txt")
+        summary.sumup(tip=True)
+
+        with open('summary.txt') as f:
+            lines = f.readlines()
+        text = ""
+        for line in lines:
+            text += "{}\n".format(line)
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text = text)
+        )
+        download4.upload("summary.txt","/summary.txt")  
+
+    elif postbackdata == "request_rank":
+        import download4
+        import summary
+        download4.download("/logvol2.txt","log.txt")
+        summary.sumup(tip=True)
+
+        with open('rank.txt') as f:
+            lines = f.readlines()
+        text = ""
+        for line in lines:
+            text += "{}\n".format(line)
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text = text)
+        )
+        download4.upload("rank.txt","/rank.txt")  
     
 
 

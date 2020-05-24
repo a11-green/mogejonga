@@ -1,4 +1,4 @@
-NAME POINTS GAMES
+NAME POINTs GAMEs TIPs
 場代負け 42.0 1 -3.0
 バラク・オマタ 9.0 1 5.0
 ソギモギ皇帝 0 0 0
