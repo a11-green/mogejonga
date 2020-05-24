@@ -153,32 +153,40 @@ def message_text(event):
             import download4
             import graph
 
-            download4.download("/logvol1.txt","log.txt")
-            graph.graph_plot()
-
-            bucket.upload_file("test.png", "test.png")
-            s3_image_url = s3_client.generate_presigned_url(
-                ClientMethod = 'get_object',
-                Params       = {'Bucket': aws_s3_bucket, 'Key': "test.png"},
-                ExpiresIn    = 10,
-                HttpMethod   = 'GET'
-            )
-
             line_bot_api.reply_message(
-                event.reply_token,
-                ImageSendMessage(
-                    original_content_url = s3_image_url,
-                    preview_image_url    = s3_image_url,
+                    event.reply_token,
+                    TextSendMessage(
+                        text="どれにする?",
+                        quick_reply=QuickReply(
+                            items=[
+                                QuickReplyButton(
+                                    action=PostbackAction(
+                                        label="点",       # ボタンに表示する文字
+                                        text="点収支を見せて",  # テキストとして送信する文字
+                                        data="request_point"     # Postback
+                                    )
+                                ),
+                                QuickReplyButton(
+                                    action=PostbackAction(
+                                        label="チップ",
+                                        text="チップ収支をみせて",
+                                        data="request_tip"
+                                    )
+                                )
+                            ]
+                        )
+                    )
                 )
-            )
-            download4.upload("test.png","/graph.png")     
+
+
+             
 
         # Summary
         elif message.count("しゅうけい") != 0:
             import download4
             import summary
-            download4.download("/logvol1.txt","log.txt")
-            summary.sumup()
+            download4.download("/logvol2.txt","log.txt")
+            summary.sumup(tip=True)
 
             with open('summary.txt') as f:
                 lines = f.readlines()
@@ -199,9 +207,12 @@ def message_text(event):
             )
 
         elif message.count("だーー") != 0:
-            line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text = "猪木かよ")
+           line_bot_api.reply_message(
+                event.reply_token,
+                ImageSendMessage(
+                    original_content_url = "http://attrip.jp/wp-content/uploads/2013/07/20130716-130424.jpg",
+                    preview_image_url    = "http://attrip.jp/wp-content/uploads/2013/07/20130716-130424.jpg"
+                )
             )
 
         elif message.count("ブリテン") != 0:
@@ -217,6 +228,52 @@ def message_text(event):
         import traceback
         print("errrrrrrrrrror")
         traceback.print_exc()
+        
+    @handler.add(PostbackEvent)
+def handle_postback(event):
+    '''
+    PostBackアクションがあったときの動作
+    '''
+    postbackdata = event.postback.data
+    if postbackdata == "request_point":
+        download4.download("/logvol2.txt","log.txt")
+        graph.graph_plot(tip=True)
+        bucket.upload_file("test.png", "test.png")
+        s3_image_url = s3_client.generate_presigned_url(
+            ClientMethod = 'get_object',
+            Params       = {'Bucket': aws_s3_bucket, 'Key': "test.png"},
+            ExpiresIn    = 600,
+            HttpMethod   = 'GET'
+        )
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            ImageSendMessage(
+                original_content_url = s3_image_url,
+                preview_image_url    = s3_image_url,
+            )
+        )
+        download4.upload("test.png","/graph.png")  
+
+    if postbackdata == "request_tip":
+        download4.download("/logvol2.txt","log.txt")
+        graph.graph_plot(tip=True)
+        bucket.upload_file("test2.png", "test2.png")
+        s3_image_url = s3_client.generate_presigned_url(
+            ClientMethod = 'get_object',
+            Params       = {'Bucket': aws_s3_bucket, 'Key': "test2.png"},
+            ExpiresIn    = 600,
+            HttpMethod   = 'GET'
+        )
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            ImageSendMessage(
+                original_content_url = s3_image_url,
+                preview_image_url    = s3_image_url,
+            )
+        )
+        download4.upload("test2.png","/graph2.png")    
         
     
 
