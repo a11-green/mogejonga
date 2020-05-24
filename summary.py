@@ -215,8 +215,23 @@ def sumup(tip):
                     ave = "-"
                 f.write("{} : {}-{}-{}  {}\n".format(name,n1,n2,n3,ave) )
             
-
-
+    with open("team.txt",'w') as f:
+        # チーム合計
+        team_A_point = 0
+        team_A_point += pointSumA[-1]
+        team_A_point += pointSumC[-1]
+        team_A_point += pointSumD[-1]
+        team_A_point += pointSumI[-1]
+        team_B_point = 0
+        team_B_point += pointSumB[-1]
+        team_B_point += pointSumE[-1]
+        team_B_point += pointSumF[-1]
+        team_B_point += pointSumG[-1]
+        team_C_point = 0
+        team_C_point += pointSumH[-1]
+        f.write("kiddy : {}\n".format(team_A_point))
+        f.write("rouge : {}\n".format(team_B_point))
+        f.write("king  : {}\n".format(team_C_point))
 
     
 

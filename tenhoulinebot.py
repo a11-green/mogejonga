@@ -202,6 +202,13 @@ def message_text(event):
                                         text="着順をみせて",
                                         data="request_rank"
                                     )
+                                ),
+                                QuickReplyButton(
+                                    action=PostbackAction(
+                                        label="チーム",
+                                        text="チーム成績をみせて",
+                                        data="request_team"
+                                    )
                                 )
                             ]
                         )
@@ -324,6 +331,23 @@ def handle_postback(event):
         TextSendMessage(text = text)
         )
         download4.upload("rank.txt","/rank.txt")  
+
+    elif postbackdata == "request_team":
+        import download4
+        import summary
+        download4.download("/logvol2.txt","log.txt")
+        summary.sumup(tip=True)
+
+        with open('team.txt') as f:
+            lines = f.readlines()
+        text = ""
+        for line in lines:
+            text += "{}\n".format(line)
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text = text)
+        )
+        download4.upload("team.txt","/team.txt")  
     
 
 
