@@ -204,9 +204,16 @@ def sumup(tip):
             "kitagaw"
         ]
         if tip == True:
-            f.write("NAME 1st 2nd 3rd\n")
+            f.write("NAME 1st 2nd 3rd AVERAGE\n")
             for name in NAMEs:
-                f.write("{} : {}-{}-{}\n".format(name,rank[name][0],rank[name][1],rank[name][2]) )
+                n1 = rank[name][0]
+                n2 = rank[name][1]
+                n3 = rank[name][2]
+                try:
+                    ave = (n1*1.0+n2*2.0+n3*3.0)/(n1+n2+n3)
+                except ZeroDivisionError:
+                    ave = "-"
+                f.write("{} : {}-{}-{}  {}\n".format(name,n1,n2,n3,ave) )
             
 
 
