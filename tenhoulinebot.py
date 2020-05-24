@@ -230,12 +230,16 @@ def message_text(event):
         traceback.print_exc()
         
 
-        
+
 @handler.add(PostbackEvent)
 def handle_postback(event):
     '''
     PostBackアクションがあったときの動作
     '''
+    import download4
+    import summary
+    import graph
+    
     postbackdata = event.postback.data
     if postbackdata == "request_point":
         download4.download("/logvol2.txt","log.txt")
