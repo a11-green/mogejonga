@@ -325,7 +325,7 @@ def handle_postback(event):
     elif postbackdata == "request_today":
         import download4
         import summary
-        download4.download("/todays_score.txt","todays_score.txt")
+        download4.download("/todays_score.txt","todays_log.txt")
         summary.today(tip=True)
 
         with open('todays_summary.txt') as f:

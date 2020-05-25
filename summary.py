@@ -236,7 +236,7 @@ def sumup(tip):
 def today(tip):
     
 
-    f = open('todays_score.txt')
+    f = open('todays_log.txt')
     lines = f.readlines() # 1行毎にファイル終端まで全て読む(改行文字も含まれる)
     f.close()
     pointsA   = [0] # 浅野
