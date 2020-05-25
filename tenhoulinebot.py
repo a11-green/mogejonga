@@ -209,6 +209,13 @@ def message_text(event):
                                         text="チーム成績をみせて",
                                         data="request_team"
                                     )
+                                ),
+                                QuickReplyButton(
+                                    action=PostbackAction(
+                                        label="Today",
+                                        text="今日の結果をみせて",
+                                        data="request_today"
+                                    )
                                 )
                             ]
                         )
@@ -314,6 +321,23 @@ def handle_postback(event):
         TextSendMessage(text = text)
         )
         download4.upload("summary.txt","/summary.txt")  
+    
+    elif postbackdata == "request_today":
+        import download4
+        import summary
+        download4.download("/todays_score.txt","todays_score.txt")
+        summary.today(tip=True)
+
+        with open('todays_summary.txt') as f:
+            lines = f.readlines()
+        text = ""
+        for line in lines:
+            text += "{}\n".format(line)
+        line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text = text)
+        )
+        download4.upload("todays_summary.txt","/todays_summary.txt")  
 
     elif postbackdata == "request_rank":
         import download4
