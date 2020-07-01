@@ -265,7 +265,7 @@ def handle_postback(event):
 
     postbackdata = event.postback.data
     if postbackdata == "request_point":
-        download4.download("/logvol2.txt","log.txt")
+        download4.download("/logvol3.txt","log.txt")
         graph.graph_plot(tip=True)
         bucket.upload_file("test.png", "test.png")
         s3_image_url = s3_client.generate_presigned_url(
@@ -285,7 +285,7 @@ def handle_postback(event):
         download4.upload("test.png","/graph.png")  
 
     if postbackdata == "request_tip":
-        download4.download("/logvol2.txt","log.txt")
+        download4.download("/logvol3.txt","log.txt")
         graph.graph_plot(tip=True)
         bucket.upload_file("test2.png", "test2.png")
         s3_image_url = s3_client.generate_presigned_url(
@@ -308,7 +308,7 @@ def handle_postback(event):
     elif postbackdata == "request_sum":
         import download4
         import summary
-        download4.download("/logvol2.txt","log.txt")
+        download4.download("/logvol3.txt","log.txt")
         summary.sumup(tip=True)
 
         with open('summary.txt') as f:
@@ -342,7 +342,7 @@ def handle_postback(event):
     elif postbackdata == "request_rank":
         import download4
         import summary
-        download4.download("/logvol2.txt","log.txt")
+        download4.download("/logvol3.txt","log.txt")
         summary.sumup(tip=True)
 
         with open('rank.txt') as f:
@@ -359,7 +359,7 @@ def handle_postback(event):
     elif postbackdata == "request_team":
         import download4
         import summary
-        download4.download("/logvol2.txt","log.txt")
+        download4.download("/logvol3.txt","log.txt")
         summary.sumup(tip=True)
 
         with open('team.txt') as f:

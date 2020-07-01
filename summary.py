@@ -447,19 +447,19 @@ def today(tip):
         # チーム合計
         team_A_point = 0
         team_A_point += pointSumA[-1]
-        team_A_point += pointSumC[-1]
         team_A_point += pointSumD[-1]
         team_A_point += pointSumI[-1]
         team_B_point = 0
-        team_B_point += pointSumB[-1]
         team_B_point += pointSumE[-1]
         team_B_point += pointSumF[-1]
         team_B_point += pointSumG[-1]
         team_C_point = 0
+        team_C_point += pointSumB[-1]
+        team_C_point += pointSumC[-1]
         team_C_point += pointSumH[-1]
-        f.write("kiddy : {}\n".format(team_A_point))
-        f.write("rouge : {}\n".format(team_B_point))
-        f.write("king  : {}\n".format(team_C_point))
+        f.write("チームテニス: {}\n".format(team_A_point))
+        f.write("留年軍団 : {}\n".format(team_B_point))
+        f.write("世界の地球工  : {}\n".format(team_C_point))
 
 
     
