@@ -312,15 +312,15 @@ def handle_postback(event):
         download4.upload("test2.png","/graph2.png")    
 
     elif postbackdata == "request_rating":
-        
-        download4.download("/logvol1.txt","logvol1.txt")
-        download4.download("/logvol2.txt","logvol2.txt")
-        download4.download("/logvol3.txt","logvol3.txt")
+
+        download4.download("/logvol1.txt","rating/logvol1.txt")
+        download4.download("/logvol2.txt","rating/logvol2.txt")
+        download4.download("/logvol3.txt","rating/logvol3.txt")
         
         initial_rating,initial_games,initial_rating_history = cr.initialize_rating("rating/rating.txt")
-        r,g,h = cr.calc_rating(initial_rating,initial_games,initial_rating_history,"logvol1.txt",tip=False)
-        r,g,h = cr.calc_rating(r,g,h,"logvol2.txt",tip=True)
-        r,g,h = cr.calc_rating(r,g,h,"logvol3.txt",tip=True)
+        r,g,h = cr.calc_rating(initial_rating,initial_games,initial_rating_history,"rating/logvol1.txt",tip=False)
+        r,g,h = cr.calc_rating(r,g,h,"rating/logvol2.txt",tip=True)
+        r,g,h = cr.calc_rating(r,g,h,"rating/logvol3.txt",tip=True)
         rating_plot(h)
 
         bucket.upload_file("rating.png", "rating.png")
