@@ -321,7 +321,7 @@ def handle_postback(event):
         r,g,h = cr.calc_rating(initial_rating,initial_games,initial_rating_history,"rating/logvol1.txt",tip=False)
         r,g,h = cr.calc_rating(r,g,h,"rating/logvol2.txt",tip=True)
         r,g,h = cr.calc_rating(r,g,h,"rating/logvol3.txt",tip=True)
-        rating_plot(h)
+        cr.rating_plot(h)
 
         bucket.upload_file("rating.png", "rating.png")
         s3_image_url = s3_client.generate_presigned_url(
