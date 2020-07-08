@@ -126,6 +126,7 @@ def calc_rating(initial_rating,initial_games,initial_rating_history,logfile,tip=
 
 def rating_plot(rating_history):
 
+    plt.clf()
     names = {"場代負け":"asano","バラク・オマタ":"kondo","ソギモギ皇帝":"nagaya","鳥谷タカシ":"suwa","さかかきばら":"edamatsu","ニートしたい":"tsuchihashi","Toshi624":"ochiai","とぅーり王":"king","kitagaw":"kitagawa"}
     for player in rating_history.keys():
         x = [i for i in range(len(rating_history[player]))]
@@ -136,6 +137,7 @@ def rating_plot(rating_history):
 
     plt.legend()
     plt.savefig("rating.png")
+    
 
 if __name__ == "__main__":
     initial_rating,initial_games,initial_rating_history = initialize_rating("rating.txt")
