@@ -172,6 +172,13 @@ def message_text(event):
                                         text="チップ推移をみせて",
                                         data="request_tip"
                                     )
+                                ),
+                                QuickReplyButton(
+                                    action=PostbackAction(
+                                        label="Rating",
+                                        text="Ratingをみせて",
+                                        data="request_rating"
+                                    )
                                 )
                             ]
                         )
@@ -233,11 +240,10 @@ def message_text(event):
            line_bot_api.reply_message(
                 event.reply_token,
                 ImageSendMessage(
-                    original_content_url = "http://attrip.jp/wp-content/uploads/2013/07/20130716-130424.jpg",
-                    preview_image_url    = "http://attrip.jp/wp-content/uploads/2013/07/20130716-130424.jpg"
+                    original_content_url = "https://amd.c.yimg.jp/im_siggaxoZr2KCiBiG_WuqdyfQwg---x900-y863-q90-exp3h-pril/amd/20200619-06190063-sph-000-2-view.jpg",
+                    preview_image_url    = "https://amd.c.yimg.jp/im_siggaxoZr2KCiBiG_WuqdyfQwg---x900-y863-q90-exp3h-pril/amd/20200619-06190063-sph-000-2-view.jpg"
                 )
             )
-
         elif message.count("ブリテン") != 0:
             line_bot_api.reply_message(
             event.reply_token,
@@ -262,6 +268,7 @@ def handle_postback(event):
     import download4
     import summary
     import graph
+    import rating.calc_rating as cr
 
     postbackdata = event.postback.data
     if postbackdata == "request_point":
@@ -303,6 +310,35 @@ def handle_postback(event):
             )
         )
         download4.upload("test2.png","/graph2.png")    
+
+    elif postbackdata == "request_rating":
+        
+        download4.download("/logvol1.txt","logvol1.txt")
+        download4.download("/logvol2.txt","logvol2.txt")
+        download4.download("/logvol3.txt","logvol3.txt")
+        
+        initial_rating,initial_games,initial_rating_history = cr.initialize_rating("rating/rating.txt")
+        r,g,h = cr.calc_rating(initial_rating,initial_games,initial_rating_history,"logvol1.txt",tip=False)
+        r,g,h = cr.calc_rating(r,g,h,"logvol2.txt",tip=True)
+        r,g,h = cr.calc_rating(r,g,h,"logvol3.txt",tip=True)
+        rating_plot(h)
+
+        bucket.upload_file("rating.png", "rating.png")
+        s3_image_url = s3_client.generate_presigned_url(
+            ClientMethod = 'get_object',
+            Params       = {'Bucket': aws_s3_bucket, 'Key': "rating.png"},
+            ExpiresIn    = 600,
+            HttpMethod   = 'GET'
+        )
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            ImageSendMessage(
+                original_content_url = s3_image_url,
+                preview_image_url    = s3_image_url,
+            )
+        )
+        download4.upload("rating.png","/rating.png")    
 
 
     elif postbackdata == "request_sum":
