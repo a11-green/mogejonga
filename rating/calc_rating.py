@@ -23,10 +23,11 @@ def initialize_rating(initial_file):
     for l in init_ratings:
         player      = l.split()[0]
         init_rating = l.split()[1] 
-        init_games  = l.split()[1]
+        init_games  = l.split()[2]
         rating[player] = float(init_rating) 
         games[player]  = int(init_games)
         rating_history[player] = [float(init_rating)]
+        print(games)
     
     return rating,games,rating_history
 
@@ -39,6 +40,7 @@ def calc_rating(initial_rating,initial_games,initial_rating_history,logfile,tip=
     rating_history = initial_rating_history
 
     for line in lines[1:]:
+        # print(games)
 
         if len(line) > 10: #変な行は飛ばす
          
@@ -54,6 +56,7 @@ def calc_rating(initial_rating,initial_games,initial_rating_history,logfile,tip=
                 player1 = l[1].replace("遊びたい","とぅーり王")
                 player2 = l[4].replace("遊びたい","とぅーり王")
                 player3 = l[7].replace("遊びたい","とぅーり王")
+                
 
             # 祝儀ありの場合
             if tip == True:
@@ -71,18 +74,19 @@ def calc_rating(initial_rating,initial_games,initial_rating_history,logfile,tip=
 
             # print(rate_average)
 
+            print(player1,player2,player3)
             # 試合数補正
             if games[player1] < 400:
                 games_correction1 = 1.0 - games[player1]*0.002
-            else :
+            if games[player1] >= 400:
                 games_correction1 = 0.2
             if games[player2] < 400:
                 games_correction2 = 1.0 - games[player2]*0.002
-            else :
+            if games[player2] >= 400:
                 games_correction2 = 0.2
             if games[player3] < 400:
                 games_correction3 = 1.0 - games[player3]*0.002
-            else :
+            if games[player3] >= 400:
                 games_correction3 = 0.2
 
             # 平均R補正
@@ -92,8 +96,9 @@ def calc_rating(initial_rating,initial_games,initial_rating_history,logfile,tip=
 
             # Rating変動
             rate_delta1 = round(games_correction1 * ( 30.0  + averageR_correction1 ) * 1.0, 3) # 1st
-            rate_delta2 = round(games_correction1 * ( 0.0   + averageR_correction2 ) * 1.0, 3) # 2nd
-            rate_delta3 = round(games_correction1 * ( -30.0 + averageR_correction3 ) * 1.0, 3) # 3rd
+            rate_delta2 = round(games_correction2 * ( 0.0   + averageR_correction2 ) * 1.0, 3) # 2nd
+            rate_delta3 = round(games_correction3 * ( -30.0 + averageR_correction3 ) * 1.0, 3) # 3rd
+            print(rate_delta1,rate_delta2,rate_delta3)
 
             # rate_delta1 = 30.0
             # rate_delta2 = 0.0
@@ -140,8 +145,8 @@ def rating_plot(rating_history):
     
 
 if __name__ == "__main__":
-    initial_rating,initial_games,initial_rating_history = initialize_rating("rating.txt")
-    r,g,h = calc_rating(initial_rating,initial_games,initial_rating_history,"logvol1.txt",tip=False)
+    r,g,h = initialize_rating("rating.txt")
+    r,g,h = calc_rating(r,g,h,"logvol1.txt",tip=False)
     r,g,h = calc_rating(r,g,h,"logvol2.txt",tip=True)
     r,g,h = calc_rating(r,g,h,"logvol3.txt",tip=True)
 
