@@ -272,7 +272,7 @@ def handle_postback(event):
 
     postbackdata = event.postback.data
     if postbackdata == "request_point":
-        download4.download("/logvol3.txt","log.txt")
+        download4.download("/logvol4.txt","log.txt")
         graph.graph_plot(tip=True)
         bucket.upload_file("test.png", "test.png")
         s3_image_url = s3_client.generate_presigned_url(
@@ -292,7 +292,7 @@ def handle_postback(event):
         download4.upload("test.png","/graph.png")  
 
     if postbackdata == "request_tip":
-        download4.download("/logvol3.txt","log.txt")
+        download4.download("/logvol4.txt","log.txt")
         graph.graph_plot(tip=True)
         bucket.upload_file("test2.png", "test2.png")
         s3_image_url = s3_client.generate_presigned_url(
@@ -315,12 +315,14 @@ def handle_postback(event):
 
         download4.download("/logvol1.txt","rating/logvol1.txt")
         download4.download("/logvol2.txt","rating/logvol2.txt")
-        download4.download("/logvol3.txt","rating/logvol3.txt")
+        download4.download("/logvol3.txt","rating/logvol2.txt")
+        download4.download("/logvol4.txt","rating/logvol4.txt")
         
         initial_rating,initial_games,initial_rating_history = cr.initialize_rating("rating/rating.txt")
         r,g,h = cr.calc_rating(initial_rating,initial_games,initial_rating_history,"rating/logvol1.txt",tip=False)
         r,g,h = cr.calc_rating(r,g,h,"rating/logvol2.txt",tip=True)
         r,g,h = cr.calc_rating(r,g,h,"rating/logvol3.txt",tip=True)
+        r,g,h = cr.calc_rating(r,g,h,"rating/logvol4.txt",tip=True)
         cr.rating_plot(h)
 
         bucket.upload_file("rating.png", "rating.png")
@@ -344,7 +346,7 @@ def handle_postback(event):
     elif postbackdata == "request_sum":
         import download4
         import summary
-        download4.download("/logvol3.txt","log.txt")
+        download4.download("/logvol4.txt","log.txt")
         summary.sumup(tip=True)
 
         with open('summary.txt') as f:
@@ -378,7 +380,7 @@ def handle_postback(event):
     elif postbackdata == "request_rank":
         import download4
         import summary
-        download4.download("/logvol3.txt","log.txt")
+        download4.download("/logvol4.txt","log.txt")
         summary.sumup(tip=True)
 
         with open('rank.txt') as f:
@@ -395,7 +397,7 @@ def handle_postback(event):
     elif postbackdata == "request_team":
         import download4
         import summary
-        download4.download("/logvol3.txt","log.txt")
+        download4.download("/logvol4.txt","log.txt")
         summary.sumup(tip=True)
 
         with open('team.txt') as f:
