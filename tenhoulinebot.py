@@ -352,8 +352,8 @@ def handle_postback(event):
         text = tools.season_summary(
             (datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
         line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text = text) 
+            event.reply_token,
+            TextSendMessage(text = text))
     
     elif postbackdata == "request_today":
         import download4
@@ -376,15 +376,15 @@ def handle_postback(event):
         text = tools.season_rank(
             (datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
         line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text = text) 
+            event.reply_token,
+            TextSendMessage(text = text))
 
     elif postbackdata == "request_team":
         text = tools.season_team(
             (datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
         line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text = text)
+            event.reply_token,
+            TextSendMessage(text = text))
         
          
     
