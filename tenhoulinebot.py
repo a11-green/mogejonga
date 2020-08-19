@@ -41,6 +41,7 @@ import os
 import sys
 import datetime
 from argparse import ArgumentParser
+from datetime import datetime, timedelta, timezone
 
 # Web FlameWork
 from flask import Flask, request, abort
@@ -84,6 +85,9 @@ import pprint
 
 # AWS
 import boto3
+
+# harukis module
+import harukis.syukei as sy
 
 
 # Flask Web App Instance
@@ -395,16 +399,7 @@ def handle_postback(event):
         download4.upload("rank.txt","/rank.txt")  
 
     elif postbackdata == "request_team":
-        import download4
-        import summary
-        download4.download("/logvol4.txt","log.txt")
-        summary.sumup(tip=True)
-
-        with open('team.txt') as f:
-            lines = f.readlines()
-        text = ""
-        for line in lines:
-            text += "{}\n".format(line)
+        text = sy.season_team((datetime(2020, 8, 15, 12, 00, tzinfo=JST), datetime.now(tz=JST)))
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text = text)
