@@ -236,7 +236,7 @@ def message_text(event):
                                 QuickReplyButton(
                                     action=PostbackAction(
                                         label="Test",
-                                        text="test",
+                                        text="{} {}".format(message,option),
                                         data="request_test:{}".format(option)
                                     )
                                 )
