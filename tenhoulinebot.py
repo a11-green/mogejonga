@@ -195,6 +195,10 @@ def message_text(event):
 
         # Summary
         elif message.count("しゅうけい") != 0:
+            try:
+                option = message.split("")[1]
+            except:
+                option = "4"
             line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(
@@ -227,6 +231,13 @@ def message_text(event):
                                         label="Today",
                                         text="今日の結果をみせて",
                                         data="request_today"
+                                    )
+                                ),
+                                QuickReplyButton(
+                                    action=PostbackAction(
+                                        label="Test",
+                                        text="今日の結果をみせて",
+                                        data=["test",option]
                                     )
                                 )
                             ]
@@ -349,25 +360,32 @@ def handle_postback(event):
 
 
     elif postbackdata == "request_sum":
-        text = tools.season_summary()
+        text = tools.summary(season="4")
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))
     
     elif postbackdata == "request_today":
-        text = tools.today_summary()
+        text = tools.summary(season="4")
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text)) 
 
     elif postbackdata == "request_rank":
-        text = tools.season_rank()
+        text = tools.rank(season="4")
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))
 
     elif postbackdata == "request_team":
-        text = tools.season_team()
+        text = tools.team(season="4")
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text = text))
+
+    elif postbackdata[0] == "test":
+        option = postbackdata[1]
+        text = tools.team(season=option)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))

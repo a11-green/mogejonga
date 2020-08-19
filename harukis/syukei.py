@@ -15,13 +15,23 @@ class Tools:
         results_c6529 = fetch_lobby_log("C6529")
         results_c8823 = fetch_lobby_log("C8823")
         results_all = results_c8823 + results_c5449 + results_c6529
-        book = ResultBook.from_results(results_all, self.PLAYERS)
+        
+        book_all = ResultBook.from_results(results_all, self.PLAYERS)
+        book_season1 = book_all.filter_by_period((datetime(2020, 4,  1, 12, 00, tzinfo=self.JST), datetime(2020, 5, 23, 23, 59, tzinfo=self.JST)))
+        book_season2 = book_all.filter_by_period((datetime(2020, 5, 24, 00, 00, tzinfo=self.JST), datetime(2020, 6, 30, 23, 59, tzinfo=self.JST)))
+        book_season3 = book_all.filter_by_period((datetime(2020, 7,  1, 00, 00, tzinfo=self.JST), datetime(2020, 8, 15, 12, 00, tzinfo=self.JST)))
+        book_season4 = book_all.filter_by_period((datetime(2020, 8, 15, 12, 00, tzinfo=self.JST), datetime.now(tz=self.JST)))
+        book_today = book_all.filter_by_period((start_of_today(self.JST), datetime.now(tz=self.JST)))
 
-        self.book_season1 = book.filter_by_period((datetime(2020, 4,  1, 12, 00, tzinfo=self.JST), datetime(2020, 5, 23, 23, 59, tzinfo=self.JST)))
-        self.book_season2 = book.filter_by_period((datetime(2020, 5, 24, 00, 00, tzinfo=self.JST), datetime(2020, 6, 30, 23, 59, tzinfo=self.JST)))
-        self.book_season3 = book.filter_by_period((datetime(2020, 7,  1, 00, 00, tzinfo=self.JST), datetime(2020, 8, 15, 12, 00, tzinfo=self.JST)))
-        self.book_season4 = book.filter_by_period((datetime(2020, 8, 15, 12, 00, tzinfo=self.JST), datetime.now(tz=self.JST)))
-        self.book_today = book.filter_by_period((start_of_today(self.JST), datetime.now(tz=self.JST)))
+        self.books = {
+            "all"   : book_all,
+            "1"     : book_season1,
+            "2"     : book_season2,
+            "3"     : book_season3,
+            "4"     : book_season4,
+            "today" : book_today
+        }
+
 
 
     def main(self):
@@ -78,8 +88,8 @@ class Tools:
     #     return book
 
 
-    def season_summary(self):
-        book = self.book_season4
+    def summary(self,season):
+        book = self.books[season]
         df = book.aggregate(player_num=3).sort_values("得点", ascending=False)
         df_summary = df[["名前", "回数", "得点"]]
         text = df_summary.to_string(
@@ -88,8 +98,8 @@ class Tools:
         print(text)
         return text
 
-    def season_rank(self):
-        book = self.book_season4
+    def rank(self,season):
+        book = self.books[season]
         df = book.aggregate(player_num=3).sort_values("得点", ascending=False)
         df_rank = df[["名前", "順位分布", "平均順位"]]
         text = df_rank.to_string(
@@ -98,13 +108,13 @@ class Tools:
         print(text)
         return text
 
-    def season_team(self):
+    def team(self,season):
+        book = self.books[season]
         teams = {
             "そろそろプラスになるズ": ["kitagaw", "バラク・オマタ", "ソギモギ皇帝"],
             "AGE"               : ["場代負け", "とぅーり王", "ニートしたい"],
             "薄利多売"            : ["Toshi624", "さかかきばら", "鳥谷タカシ"],
         }
-        book = self.book_season4
         text = ""
         for name, players in teams.items():
             score = book.scores[players].fillna(0).values.sum()
@@ -112,20 +122,12 @@ class Tools:
         print(text)
         return text
 
-    def today_summary(self):
-        book = self.book_today
-        df = book.aggregate(player_num=3).sort_values("得点", ascending=False)
-        df_summary = df[["名前", "回数", "得点"]]
-        text = df_summary.to_string(
-            index=False, 
-            formatters={'名前':'{:<8}'.format, "回数":'{:>4}'.format, "得点":'{:>7}'.format})
-        print(text)
-        return text
 
 if __name__ == "__main__":
     # main()
     tools = Tools()
-    tools.season_summary()
-    tools.season_rank()
-    tools.season_team()
-    tools.today_summary()
+    tools.summary(season="4")
+    tools.rank(season="4")
+    tools.team(season="4")
+    tools.summary(season="today")
+    tools.summary(season="all")
