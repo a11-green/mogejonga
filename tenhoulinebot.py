@@ -236,8 +236,8 @@ def message_text(event):
                                 QuickReplyButton(
                                     action=PostbackAction(
                                         label="Test",
-                                        text="今日の結果をみせて",
-                                        data=["test",option]
+                                        text="test",
+                                        data="request_test:{}".format(option)
                                     )
                                 )
                             ]
@@ -383,8 +383,8 @@ def handle_postback(event):
             event.reply_token,
             TextSendMessage(text = text))
 
-    elif postbackdata[0] == "test":
-        option = postbackdata[1]
+    elif postbackdata.count("request_test") != 0:
+        option = postbackdata.split(":")[1]
         text = tools.team(season=option)
         line_bot_api.reply_message(
             event.reply_token,
