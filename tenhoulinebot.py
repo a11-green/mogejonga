@@ -385,7 +385,7 @@ def handle_postback(event):
 
     elif postbackdata.count("request_test") != 0:
         option = postbackdata.split(":")[1]
-        text = tools.team(season=option)
+        text = tools.summary(season=option)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))
