@@ -349,21 +349,11 @@ def handle_postback(event):
 
 
     elif postbackdata == "request_sum":
-        import download4
-        import summary
-        download4.download("/logvol4.txt","log.txt")
-        summary.sumup(tip=True)
-
-        with open('summary.txt') as f:
-            lines = f.readlines()
-        text = ""
-        for line in lines:
-            text += "{}\n".format(line)
+        text = tools.season_summary(
+            (datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = text)
-        )
-        download4.upload("summary.txt","/summary.txt")  
+        TextSendMessage(text = text) 
     
     elif postbackdata == "request_today":
         import download4
@@ -383,29 +373,20 @@ def handle_postback(event):
         download4.upload("todays_summary.txt","/todays_summary.txt")  
 
     elif postbackdata == "request_rank":
-        import download4
-        import summary
-        download4.download("/logvol4.txt","log.txt")
-        summary.sumup(tip=True)
-
-        with open('rank.txt') as f:
-            lines = f.readlines()
-        text = ""
-        for line in lines:
-            text += "{}\n".format(line)
+        text = tools.season_rank(
+            (datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
         line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text = text)
-        )
-        download4.upload("rank.txt","/rank.txt")  
+        TextSendMessage(text = text) 
 
     elif postbackdata == "request_team":
-        text = tools.season_team((datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
+        text = tools.season_team(
+            (datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text = text)
-        )
-        download4.upload("team.txt","/team.txt")  
+        
+         
     
 
 
