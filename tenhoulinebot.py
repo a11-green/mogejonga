@@ -349,39 +349,25 @@ def handle_postback(event):
 
 
     elif postbackdata == "request_sum":
-        text = tools.season_summary(
-            (datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
+        text = tools.season_summary()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))
     
     elif postbackdata == "request_today":
-        import download4
-        import summary
-        download4.download("/todays_score.txt","todays_log.txt")
-        summary.today(tip=True)
-
-        with open('todays_summary.txt') as f:
-            lines = f.readlines()
-        text = ""
-        for line in lines:
-            text += "{}\n".format(line)
+        text = tools.today_summary()
         line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text = text)
-        )
-        download4.upload("todays_summary.txt","/todays_summary.txt")  
+            event.reply_token,
+            TextSendMessage(text = text)) 
 
     elif postbackdata == "request_rank":
-        text = tools.season_rank(
-            (datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
+        text = tools.season_rank()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))
 
     elif postbackdata == "request_team":
-        text = tools.season_team(
-            (datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
+        text = tools.season_team()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))
