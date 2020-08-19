@@ -196,7 +196,7 @@ def message_text(event):
         # Summary
         elif message.count("しゅうけい") != 0:
             try:
-                option = message.split("")[1]
+                option = message.split()[1]
             except:
                 option = "4"
             line_bot_api.reply_message(
