@@ -88,6 +88,7 @@ import boto3
 
 # harukis module
 import harukis.syukei as sy
+tools = sy.Tools()
 
 
 # Flask Web App Instance
@@ -399,7 +400,7 @@ def handle_postback(event):
         download4.upload("rank.txt","/rank.txt")  
 
     elif postbackdata == "request_team":
-        text = sy.season_team((datetime(2020, 8, 15, 12, 00, tzinfo=JST), datetime.now(tz=JST)))
+        text = tools.season_team((datetime(2020, 8, 15, 12, 00, tzinfo=tools.JST), datetime.now(tz=tools.JST)))
         line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text = text)
