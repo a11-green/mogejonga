@@ -77,11 +77,11 @@ class Tools:
         results_all = results_c8823 + results_c5449 + results_c6529
         
         self.book_all = ResultBook.from_results(results_all, self.PLAYERS)
-        self.book_season1 = book_all.filter_by_period((datetime(2020, 4,  1, 12, 00, tzinfo=self.JST), datetime(2020, 5, 23, 23, 59, tzinfo=self.JST)))
-        self.book_season2 = book_all.filter_by_period((datetime(2020, 5, 24, 00, 00, tzinfo=self.JST), datetime(2020, 6, 30, 23, 59, tzinfo=self.JST)))
-        self.book_season3 = book_all.filter_by_period((datetime(2020, 7,  1, 00, 00, tzinfo=self.JST), datetime(2020, 8, 15, 12, 00, tzinfo=self.JST)))
-        self.book_season4 = book_all.filter_by_period((datetime(2020, 8, 15, 12, 00, tzinfo=self.JST), datetime.now(tz=self.JST)))
-        self.book_today = book_all.filter_by_period((start_of_today(self.JST), datetime.now(tz=self.JST)))
+        self.book_season1 = self.book_all.filter_by_period((datetime(2020, 4,  1, 12, 00, tzinfo=self.JST), datetime(2020, 5, 23, 23, 59, tzinfo=self.JST)))
+        self.book_season2 = self.book_all.filter_by_period((datetime(2020, 5, 24, 00, 00, tzinfo=self.JST), datetime(2020, 6, 30, 23, 59, tzinfo=self.JST)))
+        self.book_season3 = self.book_all.filter_by_period((datetime(2020, 7,  1, 00, 00, tzinfo=self.JST), datetime(2020, 8, 15, 12, 00, tzinfo=self.JST)))
+        self.book_season4 = self.book_all.filter_by_period((datetime(2020, 8, 15, 12, 00, tzinfo=self.JST), datetime.now(tz=self.JST)))
+        self.book_today = self.book_all.filter_by_period((start_of_today(self.JST), datetime.now(tz=self.JST)))
 
         self.books = {
             "all"   : self.book_all,
