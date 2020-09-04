@@ -366,7 +366,7 @@ def handle_postback(event):
             TextSendMessage(text = text))
     
     elif postbackdata == "request_today":
-        text = tools.summary(season="4")
+        text = tools.today(season="4")
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text)) 
@@ -388,7 +388,7 @@ def handle_postback(event):
         text = tools.summary(season=option)
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text = text))
+            TextSendMessage(text = postbackdata))
         
          
     

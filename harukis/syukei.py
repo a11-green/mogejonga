@@ -84,12 +84,12 @@ class Tools:
         self.book_today = book_all.filter_by_period((start_of_today(self.JST), datetime.now(tz=self.JST)))
 
         self.books = {
-            "all"   : book_all,
-            "1"     : book_season1,
-            "2"     : book_season2,
-            "3"     : book_season3,
-            "4"     : book_season4,
-            "today" : book_today
+            "all"   : self.book_all,
+            "1"     : self.book_season1,
+            "2"     : self.book_season2,
+            "3"     : self.book_season3,
+            "4"     : self.book_season4,
+            "today" : self.book_today
         }
 
 
@@ -122,6 +122,17 @@ class Tools:
         for name, players in self.teams.items():
             score = book.scores[players].fillna(0).values.sum()
             text += "{} : {}\n".format(name,score)
+        print(text)
+        return text
+
+    def today(self,season):
+        self.update_book()
+        book = self.books["today"]
+        df = book.aggregate(player_num=3).sort_values("得点", ascending=False)
+        df_summary = df[["名前", "回数", "得点"]]
+        text = df_summary.to_string(
+            index=False, 
+            formatters={'名前':'{:<8}'.format, "回数":'{:>4}'.format, "得点":'{:>7}'.format})
         print(text)
         return text
 
