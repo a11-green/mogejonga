@@ -10,27 +10,13 @@ class Tools:
         self.JST = timezone(timedelta(hours=+9), "JST")
         # PLAYERS = ["さかかきばら", "kitagaw", "場代負け", "Toshi624", "バラク・オマタ", "鳥谷タカシ", "ニートしたい", "とぅーり王", "ソギモギ皇帝", "遊びたい"]
         self.PLAYERS = ["さかかきばら", "kitagaw", "場代負け", "Toshi624", "バラク・オマタ", "鳥谷タカシ", "ニートしたい", "とぅーり王", "ソギモギ皇帝"]
-
-        results_c5449 = fetch_lobby_log("C5449")
-        results_c6529 = fetch_lobby_log("C6529")
-        results_c8823 = fetch_lobby_log("C8823")
-        results_all = results_c8823 + results_c5449 + results_c6529
-        
-        book_all = ResultBook.from_results(results_all, self.PLAYERS)
-        book_season1 = book_all.filter_by_period((datetime(2020, 4,  1, 12, 00, tzinfo=self.JST), datetime(2020, 5, 23, 23, 59, tzinfo=self.JST)))
-        book_season2 = book_all.filter_by_period((datetime(2020, 5, 24, 00, 00, tzinfo=self.JST), datetime(2020, 6, 30, 23, 59, tzinfo=self.JST)))
-        book_season3 = book_all.filter_by_period((datetime(2020, 7,  1, 00, 00, tzinfo=self.JST), datetime(2020, 8, 15, 12, 00, tzinfo=self.JST)))
-        book_season4 = book_all.filter_by_period((datetime(2020, 8, 15, 12, 00, tzinfo=self.JST), datetime.now(tz=self.JST)))
-        book_today = book_all.filter_by_period((start_of_today(self.JST), datetime.now(tz=self.JST)))
-
-        self.books = {
-            "all"   : book_all,
-            "1"     : book_season1,
-            "2"     : book_season2,
-            "3"     : book_season3,
-            "4"     : book_season4,
-            "today" : book_today
+        self.teams = {
+            "そろそろプラスになるズ": ["kitagaw", "バラク・オマタ", "ソギモギ皇帝"],
+            "AGE": ["場代負け", "とぅーり王", "ニートしたい"],
+            "薄利多売": ["Toshi624", "さかかきばら", "鳥谷タカシ"],
         }
+        self.update_book()
+        
 
 
 
@@ -63,11 +49,7 @@ class Tools:
         # 今日の結果
         print(df2table(book_today.aggregate(3).sort_values("得点", ascending=False)))
         # チーム別
-        teams = {
-            "そろそろプラスになるズ": ["kitagaw", "バラク・オマタ", "ソギモギ皇帝"],
-            "AGE": ["場代負け", "とぅーり王", "ニートしたい"],
-            "薄利多売": ["Toshi624", "さかかきばら", "鳥谷タカシ"],
-        }
+        
         for name, self.PLAYERS in teams.items():
             score = book_season4.scores[players].fillna(0).values.sum()
             print(name, ":", score)
@@ -87,8 +69,32 @@ class Tools:
     #     book = ResultBook.from_results(results_all, self.PLAYERS)
     #     return book
 
+    def update_book(self):
+
+        results_c5449 = fetch_lobby_log("C5449")
+        results_c6529 = fetch_lobby_log("C6529")
+        results_c8823 = fetch_lobby_log("C8823")
+        results_all = results_c8823 + results_c5449 + results_c6529
+        
+        self.book_all = ResultBook.from_results(results_all, self.PLAYERS)
+        self.book_season1 = book_all.filter_by_period((datetime(2020, 4,  1, 12, 00, tzinfo=self.JST), datetime(2020, 5, 23, 23, 59, tzinfo=self.JST)))
+        self.book_season2 = book_all.filter_by_period((datetime(2020, 5, 24, 00, 00, tzinfo=self.JST), datetime(2020, 6, 30, 23, 59, tzinfo=self.JST)))
+        self.book_season3 = book_all.filter_by_period((datetime(2020, 7,  1, 00, 00, tzinfo=self.JST), datetime(2020, 8, 15, 12, 00, tzinfo=self.JST)))
+        self.book_season4 = book_all.filter_by_period((datetime(2020, 8, 15, 12, 00, tzinfo=self.JST), datetime.now(tz=self.JST)))
+        self.book_today = book_all.filter_by_period((start_of_today(self.JST), datetime.now(tz=self.JST)))
+
+        self.books = {
+            "all"   : book_all,
+            "1"     : book_season1,
+            "2"     : book_season2,
+            "3"     : book_season3,
+            "4"     : book_season4,
+            "today" : book_today
+        }
+
 
     def summary(self,season):
+        self.update_book()
         book = self.books[season]
         df = book.aggregate(player_num=3).sort_values("得点", ascending=False)
         df_summary = df[["名前", "回数", "得点"]]
@@ -99,6 +105,7 @@ class Tools:
         return text
 
     def rank(self,season):
+        self.update_book()
         book = self.books[season]
         df = book.aggregate(player_num=3).sort_values("得点", ascending=False)
         df_rank = df[["名前", "順位分布", "平均順位"]]
@@ -109,14 +116,10 @@ class Tools:
         return text
 
     def team(self,season):
+        self.update_book()
         book = self.books[season]
-        teams = {
-            "そろそろプラスになるズ": ["kitagaw", "バラク・オマタ", "ソギモギ皇帝"],
-            "AGE"               : ["場代負け", "とぅーり王", "ニートしたい"],
-            "薄利多売"            : ["Toshi624", "さかかきばら", "鳥谷タカシ"],
-        }
         text = ""
-        for name, players in teams.items():
+        for name, players in self.teams.items():
             score = book.scores[players].fillna(0).values.sum()
             text += "{} : {}\n".format(name,score)
         print(text)
