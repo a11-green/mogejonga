@@ -288,12 +288,11 @@ def handle_postback(event):
 
     postbackdata = event.postback.data
     if postbackdata == "request_point":
-        download4.download("/logvol4.txt","log.txt")
-        graph.graph_plot(tip=True)
-        bucket.upload_file("test.png", "test.png")
+        tools.plot_summary(season="4")
+        bucket.upload_file("scores.png", "scores.png")
         s3_image_url = s3_client.generate_presigned_url(
             ClientMethod = 'get_object',
-            Params       = {'Bucket': aws_s3_bucket, 'Key': "test.png"},
+            Params       = {'Bucket': aws_s3_bucket, 'Key': "scores.png"},
             ExpiresIn    = 600,
             HttpMethod   = 'GET'
         )
@@ -305,7 +304,7 @@ def handle_postback(event):
                 preview_image_url    = s3_image_url,
             )
         )
-        download4.upload("test.png","/graph.png")  
+        # download4.upload("test.png","/graph.png")  
 
     if postbackdata == "request_tip":
         download4.download("/logvol4.txt","log.txt")

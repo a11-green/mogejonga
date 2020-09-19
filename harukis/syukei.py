@@ -83,6 +83,12 @@ class Tools:
         print(text)
         return text
 
+    def plot_summary(self,season):
+        self.update_book()
+        book = self.books[season]
+        fig = book.plot_cumsum("scores")
+        fig.savefig("scores.png")
+
     def plot_points_vs_games(self,season):
         self.update_book()
         book = self.books[season]
@@ -98,3 +104,5 @@ if __name__ == "__main__":
     tools.team(season="4")
     tools.summary(season="today")
     tools.summary(season="all")
+
+    tools.plot_summary(season="4")
