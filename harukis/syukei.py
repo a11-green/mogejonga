@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 from tenhoulog import fetch_lobby_log, ResultBook
-from tenhoulog.utils import df2table, start_of_today
+from tenhoulog.utils import df2table, start_of_today,calc_rate
 
 
 class Tools:
@@ -23,6 +23,8 @@ class Tools:
         results_c7510 = fetch_lobby_log("C7510")
         results_c3571 = fetch_lobby_log("C3571")
         results_all = results_c8823 + results_c5449 + results_c6529 + results_c7510 + results_c3571
+
+        self.results = results_all
         
         self.book_all = ResultBook.from_results(results_all, self.PLAYERS)
         self.book_season1 = self.book_all.filter_by_period((datetime(2020, 4,  1, 12, 00, tzinfo=self.JST), datetime(2020, 5, 23, 23, 59, tzinfo=self.JST)))
@@ -96,16 +98,25 @@ class Tools:
         self.update_book()
         book = self.books[season]
 
+    def rating(self):
+        self.update_book()
+        ratings = calc_rate(self.results)
+        text = ""
+        for name in ratings.keys():
+            text += "{} {}\n ".format(name,int(ratings[name]["rate"]))
+        print(text)
+        return text
+
 
 
 
 if __name__ == "__main__":
     # main()
     tools = Tools()
-    tools.summary(season="4")
-    tools.rank(season="4")
-    tools.team(season="4")
-    tools.summary(season="today")
-    tools.summary(season="all")
-
+    # tools.summary(season="4")
+    # tools.rank(season="4")
+    # tools.team(season="4")
+    # tools.summary(season="today")
+    # tools.summary(season="all")
+    tools.rating()
     tools.plot_summary(season="4")

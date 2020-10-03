@@ -235,6 +235,13 @@ def message_text(event):
                                 ),
                                 QuickReplyButton(
                                     action=PostbackAction(
+                                        label="Rate",
+                                        text="Ratingをみせて",
+                                        data="request_rating"
+                                    )
+                                ),
+                                QuickReplyButton(
+                                    action=PostbackAction(
                                         label="Test",
                                         text="{} {}".format(message,option),
                                         data="request_test:{}".format(option)
@@ -378,6 +385,12 @@ def handle_postback(event):
 
     elif postbackdata == "request_team":
         text = tools.team(season="5")
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text = text))
+
+    elif postbackdata == "request_rating":
+        text = tools.rating()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))
