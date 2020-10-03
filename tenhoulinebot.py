@@ -359,25 +359,25 @@ def handle_postback(event):
 
 
     elif postbackdata == "request_sum":
-        text = tools.summary(season="4")
+        text = tools.summary(season="5")
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))
     
     elif postbackdata == "request_today":
-        text = tools.today(season="4")
+        text = tools.today(season="5")
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text)) 
 
     elif postbackdata == "request_rank":
-        text = tools.rank(season="4")
+        text = tools.rank(season="5")
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))
 
     elif postbackdata == "request_team":
-        text = tools.team(season="4")
+        text = tools.team(season="5")
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text = text))

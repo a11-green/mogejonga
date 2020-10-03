@@ -21,13 +21,15 @@ class Tools:
         results_c6529 = fetch_lobby_log("C6529")
         results_c8823 = fetch_lobby_log("C8823")
         results_c7510 = fetch_lobby_log("C7510")
-        results_all = results_c8823 + results_c5449 + results_c6529 + results_c7510
+        results_c3571 = fetch_lobby_log("C3571")
+        results_all = results_c8823 + results_c5449 + results_c6529 + results_c7510 + results_c3571
         
         self.book_all = ResultBook.from_results(results_all, self.PLAYERS)
         self.book_season1 = self.book_all.filter_by_period((datetime(2020, 4,  1, 12, 00, tzinfo=self.JST), datetime(2020, 5, 23, 23, 59, tzinfo=self.JST)))
         self.book_season2 = self.book_all.filter_by_period((datetime(2020, 5, 24, 00, 00, tzinfo=self.JST), datetime(2020, 6, 30, 23, 59, tzinfo=self.JST)))
         self.book_season3 = self.book_all.filter_by_period((datetime(2020, 7,  1, 00, 00, tzinfo=self.JST), datetime(2020, 8, 15, 12, 00, tzinfo=self.JST)))
-        self.book_season4 = self.book_all.filter_by_period((datetime(2020, 8, 15, 12, 00, tzinfo=self.JST), datetime.now(tz=self.JST)))
+        self.book_season4 = self.book_all.filter_by_period((datetime(2020, 8, 15, 12, 00, tzinfo=self.JST), datetime(2020, 9, 30, 23, 55, tzinfo=self.JST)))
+        self.book_season5 = self.book_all.filter_by_period((datetime(2020, 10, 1, 00, 00, tzinfo=self.JST), datetime.now(tz=self.JST)))
         self.book_today = self.book_all.filter_by_period((start_of_today(self.JST), datetime.now(tz=self.JST)))
 
         self.books = {
@@ -36,6 +38,7 @@ class Tools:
             "2"     : self.book_season2,
             "3"     : self.book_season3,
             "4"     : self.book_season4,
+            "5"     : self.book_season5,
             "today" : self.book_today
         }
 
