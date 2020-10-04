@@ -86,8 +86,8 @@ import pprint
 # AWS
 import boto3
 
-# harukis module
-import harukis.syukei as sy
+# haruki's module
+import syukei as sy
 tools = sy.Tools()
 
 
