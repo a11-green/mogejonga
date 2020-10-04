@@ -199,6 +199,7 @@ def message_text(event):
                 option = message.split("")[1]
             except:
                 option = "4"
+                print("except!!!!!!!!!!!!!")
             line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(
