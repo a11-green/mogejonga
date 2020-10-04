@@ -289,7 +289,7 @@ def handle_postback(event):
     '''
     PostBackアクションがあったときの動作
     '''
-    import download4
+    # import download4n
     import summary
     import graph
     import rating.calc_rating as cr
@@ -314,25 +314,25 @@ def handle_postback(event):
         )
         # download4.upload("test.png","/graph.png")  
 
-    if postbackdata == "request_tip":
-        download4.download("/logvol4.txt","log.txt")
-        graph.graph_plot(tip=True)
-        bucket.upload_file("test2.png", "test2.png")
-        s3_image_url = s3_client.generate_presigned_url(
-            ClientMethod = 'get_object',
-            Params       = {'Bucket': aws_s3_bucket, 'Key': "test2.png"},
-            ExpiresIn    = 600,
-            HttpMethod   = 'GET'
-        )
+    # if postbackdata == "request_tip":
+    #     # download4.download("/logvol4.txt","log.txt")
+    #     graph.graph_plot(tip=True)
+    #     bucket.upload_file("test2.png", "test2.png")
+    #     s3_image_url = s3_client.generate_presigned_url(
+    #         ClientMethod = 'get_object',
+    #         Params       = {'Bucket': aws_s3_bucket, 'Key': "test2.png"},
+    #         ExpiresIn    = 600,
+    #         HttpMethod   = 'GET'
+    #     )
 
-        line_bot_api.reply_message(
-            event.reply_token,
-            ImageSendMessage(
-                original_content_url = s3_image_url,
-                preview_image_url    = s3_image_url,
-            )
-        )
-        download4.upload("test2.png","/graph2.png")    
+    #     line_bot_api.reply_message(
+    #         event.reply_token,
+    #         ImageSendMessage(
+    #             original_content_url = s3_image_url,
+    #             preview_image_url    = s3_image_url,
+    #         )
+    #     )
+    #     download4.upload("test2.png","/graph2.png")    
 
     # elif postbackdata == "request_rating":
 
