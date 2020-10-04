@@ -291,7 +291,7 @@ def handle_postback(event):
     '''
     # import download4n
     # import summary
-    import graph
+    # import graph
     import rating.calc_rating as cr
 
     postbackdata = event.postback.data
