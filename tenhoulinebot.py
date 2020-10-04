@@ -333,36 +333,36 @@ def handle_postback(event):
         )
         download4.upload("test2.png","/graph2.png")    
 
-    elif postbackdata == "request_rating":
+    # elif postbackdata == "request_rating":
 
-        download4.download("/logvol1.txt","rating/logvol1.txt")
-        download4.download("/logvol2.txt","rating/logvol2.txt")
-        download4.download("/logvol3.txt","rating/logvol2.txt")
-        download4.download("/logvol4.txt","rating/logvol4.txt")
+    #     download4.download("/logvol1.txt","rating/logvol1.txt")
+    #     download4.download("/logvol2.txt","rating/logvol2.txt")
+    #     download4.download("/logvol3.txt","rating/logvol2.txt")
+    #     download4.download("/logvol4.txt","rating/logvol4.txt")
         
-        initial_rating,initial_games,initial_rating_history = cr.initialize_rating("rating/rating.txt")
-        r,g,h = cr.calc_rating(initial_rating,initial_games,initial_rating_history,"rating/logvol1.txt",tip=False)
-        r,g,h = cr.calc_rating(r,g,h,"rating/logvol2.txt",tip=True)
-        r,g,h = cr.calc_rating(r,g,h,"rating/logvol3.txt",tip=True)
-        r,g,h = cr.calc_rating(r,g,h,"rating/logvol4.txt",tip=True)
-        cr.rating_plot(h)
+    #     initial_rating,initial_games,initial_rating_history = cr.initialize_rating("rating/rating.txt")
+    #     r,g,h = cr.calc_rating(initial_rating,initial_games,initial_rating_history,"rating/logvol1.txt",tip=False)
+    #     r,g,h = cr.calc_rating(r,g,h,"rating/logvol2.txt",tip=True)
+    #     r,g,h = cr.calc_rating(r,g,h,"rating/logvol3.txt",tip=True)
+    #     r,g,h = cr.calc_rating(r,g,h,"rating/logvol4.txt",tip=True)
+    #     cr.rating_plot(h)
 
-        bucket.upload_file("rating.png", "rating.png")
-        s3_image_url = s3_client.generate_presigned_url(
-            ClientMethod = 'get_object',
-            Params       = {'Bucket': aws_s3_bucket, 'Key': "rating.png"},
-            ExpiresIn    = 600,
-            HttpMethod   = 'GET'
-        )
+    #     bucket.upload_file("rating.png", "rating.png")
+    #     s3_image_url = s3_client.generate_presigned_url(
+    #         ClientMethod = 'get_object',
+    #         Params       = {'Bucket': aws_s3_bucket, 'Key': "rating.png"},
+    #         ExpiresIn    = 600,
+    #         HttpMethod   = 'GET'
+    #     )
 
-        line_bot_api.reply_message(
-            event.reply_token,
-            ImageSendMessage(
-                original_content_url = s3_image_url,
-                preview_image_url    = s3_image_url,
-            )
-        )
-        download4.upload("rating.png","/rating.png")    
+    #     line_bot_api.reply_message(
+    #         event.reply_token,
+    #         ImageSendMessage(
+    #             original_content_url = s3_image_url,
+    #             preview_image_url    = s3_image_url,
+    #         )
+    #     )
+    #     download4.upload("rating.png","/rating.png")    
 
 
     elif postbackdata == "request_sum":
