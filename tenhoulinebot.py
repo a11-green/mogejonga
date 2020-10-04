@@ -290,7 +290,7 @@ def handle_postback(event):
     PostBackアクションがあったときの動作
     '''
     # import download4n
-    import summary
+    # import summary
     import graph
     import rating.calc_rating as cr
 
