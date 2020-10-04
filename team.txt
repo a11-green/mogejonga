@@ -1,3 +1,0 @@
-kiddy : 28.0
-rouge : 9.0
-king  : 0

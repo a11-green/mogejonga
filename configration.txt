@@ -1,6 +1,0 @@
-Client ID:
-953809891472-7l2agalk3og11bvbmq7ftvq9pvp8gm8t.apps.googleusercontent.com
-Client Secret:
-gq-mub_VuI9nlTcO-v8ymP_W
-API Key:
-AIzaSyAdCwECTUT1ZfLPoAyl5egCzcFImRUSGzk
